@@ -7,10 +7,17 @@ public class Member {
     private String lastName;
     private String rank;
     private int [] numOfLoans = new int[10];
+    private String [] borrowedBooks = new String[10];
     private boolean isBanned;
     private int numOfBans;
 
     public Member() {
+    }
+
+    public Member(int personalNum, String firstName, String lastName) {
+        this.personalNum = personalNum;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public int getID() {
