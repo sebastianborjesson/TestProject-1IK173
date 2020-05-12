@@ -2,7 +2,8 @@ package Project;
 
 public class Librarian {
 
-    public void createAccount() {
+    public void createAccount(String fnamn, String lnamn, String rank, int pnummer) {
+        Member nymember = new Member("viktor", "Bolinder", "Student", 213123);
 
     }
 

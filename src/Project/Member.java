@@ -13,6 +13,14 @@ public class Member {
     public Member() {
     }
 
+
+    public Member(String firstName, String lastName, String rank, int personalNum) {
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.rank=rank;
+        this.personalNum=personalNum;
+    }
+
     public int getID() {
         return ID;
     }
