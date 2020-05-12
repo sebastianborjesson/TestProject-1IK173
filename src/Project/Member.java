@@ -25,6 +25,12 @@ public class Member {
         this.numOfBans = numOfBans;
     }
 
+    public Member(String fNamn, String eNamn, int pNummer) {
+        this.firstName = fNamn;
+        this.lastName = eNamn;
+        this.personalNum = pNummer;
+    }
+
     public int getID() {
         return ID;
     }

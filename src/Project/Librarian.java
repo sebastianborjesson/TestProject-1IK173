@@ -3,9 +3,14 @@ package Project;
 public class Librarian implements ILibrarian {
 
     private LibraryStore ls;
+    private LibraryStub lst;
 
     public Librarian(LibraryStore ls){
         this.ls = ls;
+    }
+
+    public void LibraryStubArray (LibraryStub lst) {
+        this.lst = lst;
     }
 
     @Override
@@ -17,7 +22,7 @@ public class Librarian implements ILibrarian {
             } else if (m.getPersonalNum() == pnummer && m.isBanned()) {
                 System.out.println("This member is banned and can't be registred");
             } else {
-
+                lst.addMember(fnamn, lnamn, pnummer);
             }
 
         }
