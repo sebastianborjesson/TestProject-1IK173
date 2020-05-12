@@ -24,10 +24,4 @@ public class LibraryStore implements ILibraryStore {
 
         return x;
     }
-
-
-
-
-
-
 }
