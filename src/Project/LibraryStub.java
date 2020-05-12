@@ -5,7 +5,7 @@ import java.util.List;
 
 public class LibraryStub extends LibraryStore{
 
-    ArrayList<Member> members;
+    ArrayList<Member> members = new ArrayList<>();
 
 
     public LibraryStub(){
@@ -15,7 +15,6 @@ public class LibraryStub extends LibraryStore{
     public void addMember(String fNamn, String eNamn, String rank, int pNummer){
         Member m = new Member(pNummer, fNamn, eNamn, rank);
         members.add(m);
-
     }
 
 }

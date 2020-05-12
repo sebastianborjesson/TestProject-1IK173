@@ -7,7 +7,9 @@ public class menu{
     public static void main(String[] args) {
         Member nyMedlem = new Member(1, 19950409, "Aljosa", "Vuckovic", "Student", new int[]{0, 0, 0}, false, 0);
 
-
+        LibraryStore ls = null;
+        Librarian librarian = new Librarian();
+        Member member = new Member();
         Scanner scan = new Scanner(System.in);
         int choice;
 
@@ -22,8 +24,8 @@ public class menu{
             choice = scan.nextInt();
 
             if (choice == 1) {
-                int personalnumber = 0;
 
+                int personalnumber = 0;
                 System.out.print("Personal number: ");
 
                 String firstName;
@@ -43,14 +45,17 @@ public class menu{
                 System.out.print("Last name: ");
                 //String lastName = scan.nextLine();
 
-                System.out.println("Your role at the university: ");
-                String role = scan.nextLine();
-                System.out.println("\nA new user has been created. The information for the user is, \n"
+                System.out.println("Your rank at the university: ");
+                //String rank = scan.nextLine();
+
+                //librarian.createAccount("Spuud", "Spuudgren", "Student", 915224);
+                //librarian.createAccount(firstName, lastName, rank, personalnumber);
+                //System.out.println(ls.getAllMembers(firstName, lastName, personalnumber))
+                /*System.out.println("\nA new user has been created. The information for the user is, \n"
                         + "personalnumber: " + personalnumber
                         + " \nfirstname: " + firstName
                         + " \nlastname: " + lastName
-                        + " \nrole " + role);
-
+                        + " \nrole " + role);*/
             }
             if (choice == 2) {
                 System.out.println("Which book are you searching for? ");
@@ -64,5 +69,5 @@ public class menu{
         }
         while (choice != 5);
         System.out.println("Good bye!");
-
-    }}
+    }
+}
