@@ -13,6 +13,8 @@ public class TestProject {
         LibraryStore ls = mock(LibraryStore.class);
         Librarian cut = new Librarian(ls);
 
+        System.out.println("Hej");
+
         cut.createAccount("hej","hej", 123);
 
         when(ls.getAllMembers()).thenReturn( new Member[]{ new Member("hej","hej",123)});
