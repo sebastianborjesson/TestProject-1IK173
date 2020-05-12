@@ -14,11 +14,15 @@ public class Member {
     public Member() {
     }
 
-    public Member(String firstName, String lastName, String rank, int personalNum) {
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.rank=rank;
-        this.personalNum=personalNum;
+    public Member(int ID, int personalNum, String firstName, String lastName, String rank, int[] numOfLoans, boolean isBanned, int numOfBans) {
+        this.ID = ID;
+        this.personalNum = personalNum;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.rank = rank;
+        this.numOfLoans = numOfLoans;
+        this.isBanned = isBanned;
+        this.numOfBans = numOfBans;
     }
 
     public int getID() {

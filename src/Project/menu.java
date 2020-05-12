@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 public class menu {
     public static void main(String[] args) {
+        Member nyMedlem = new Member(1, 19950409, "Aljosa", "Vuckovic", "Student", new int[]{0, 0, 0}, false, 0);
+        Book nyBok = new Book("Game Of Thrones", "George R.R. Martin", )
+
         Scanner scan = new Scanner(System.in);
         int choice;
 
