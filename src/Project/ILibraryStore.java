@@ -9,5 +9,10 @@ public interface ILibraryStore {
 
     Member[] getAllMembers(String firstName, String lastName, String rank, int personalNum);
 
+    Member[] getMember(String firstName, String lastName, int personalNum);
+
+
     Book[] getAllBooks(String Title);
+
+    Member[] getAllMembers();
 }

@@ -22,6 +22,7 @@ public class Librarian implements ILibrarian {
     Member[] memberList = new Member[10];
 
     @Override
+    
     public void createAccount(LibraryStub lbs, String fnamn, String lnamn, String rank, int pnummer) {
 
         if (lbs.members.isEmpty()) {
@@ -30,6 +31,15 @@ public class Librarian implements ILibrarian {
         Iterator<Member> it = lbs.members.iterator();
         while (it.hasNext()) {
             Member m = it.next();
+
+            if (m.getPersonalNum() == pnummer) {
+                System.out.println("User already exists.");
+            } else if (m.getPersonalNum() == pnummer && m.isBanned()) {
+                System.out.println("This member is banned and can't be registred");
+            } else {
+                lbs.addMember(fnamn, lnamn, rank, pnummer);
+            }
+
         }
     }
 

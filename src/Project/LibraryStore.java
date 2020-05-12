@@ -29,6 +29,18 @@ public class LibraryStore implements ILibraryStore {
         return m;
     }
 
+    @Override
+    public Member[] getAllMembers() {
+        Member[] m = new Member[0];
+        return m;
+    }
+
+    @Override
+    public Member[] getMember(String firstName, String lastName, int personalNum){
+        Member[] m = new Member[0];
+        return m;
+
+    }
 
     @Override
     public Book[] getAllBooks(String Title){

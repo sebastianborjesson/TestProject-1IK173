@@ -1,7 +1,7 @@
 package Project;
 
 import java.util.Scanner;
-
+/*
 
 public class menu{
     public static void main(String[] args) {
@@ -55,7 +55,7 @@ public class menu{
                         + "personalnumber: " + personalnumber
                         + " \nfirstname: " + firstName
                         + " \nlastname: " + lastName
-                        + " \nrole " + role);*/
+                        + " \nrole " + role);
             }
             if (choice == 2) {
                 System.out.println("Which book are you searching for? ");
@@ -69,5 +69,5 @@ public class menu{
         }
         while (choice != 5);
         System.out.println("Good bye!");
-    }
-}
+    }}
+*/

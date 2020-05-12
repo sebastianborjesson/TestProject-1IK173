@@ -12,7 +12,7 @@ public class Member {
     private int numOfBans;
 
     public Member() {
-    }
+        }
 
 
     public Member(int personalNum, String firstName, String lastName, String rank) {
