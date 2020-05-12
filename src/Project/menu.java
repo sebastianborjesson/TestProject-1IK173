@@ -30,7 +30,7 @@ public class menu {
                 System.out.println("Last name: ");
                 lastName = scan.nextLine();
 
-                Member newMember = new Member(personalnumber, firstName, lastName);
+                Member newMember = new Member();
             }
             if (choice == 2) {
                 System.out.println("Which book are you searching for? ");
