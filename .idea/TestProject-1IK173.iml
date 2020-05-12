@@ -8,8 +8,12 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+
     <orderEntry type="library" name="junit:junit:4.12" level="project" />
     <orderEntry type="library" name="junit:junit:4.121" level="project" />
     <orderEntry type="library" name="com.google.code.maven-play-plugin.com.google.code.eamelink-mockito:mockito-all:1.9.1-20110911" level="application" />
+
+    <orderEntry type="library" name="TestProject-1IK173" level="project" />
+
   </component>
 </module>
