@@ -32,20 +32,18 @@ public class menu {
                 System.out.print("Last name: ");
                 String lastName = scan.nextLine();
 
-
-
-
-
+                System.out.println("Your role at the university: ");
+                String role = scan.nextLine();
                 System.out.println("\nA new user has been created. The information for the user is, \n"
                         + "personalnumber: " + personalnumber
                         + " \nfirstname: " + firstName
-                        + " \nlastname: " + lastName + "\n");
+                        + " \nlastname: " + lastName
+                        + " \nrole " + role);
 
             }
             if (choice == 2) {
                 System.out.println("Which book are you searching for? ");
-                String bookTitle;
-                bookTitle = scan.nextLine();
+                String bookTitle = scan.nextLine();
 
             }
             if (choice == 3) {
