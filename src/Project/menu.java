@@ -3,8 +3,9 @@ package Project;
 import java.util.Scanner;
 
 
-public class menu {
+public class menu{
     public static void main(String[] args) {
+        Member nyMedlem = new Member(1, 19950409, "Aljosa", "Vuckovic", "Student", new int[]{0, 0, 0}, false, 0);
 
 
         Scanner scan = new Scanner(System.in);
@@ -22,15 +23,25 @@ public class menu {
 
             if (choice == 1) {
                 int personalnumber = 0;
+
                 System.out.print("Personal number: ");
+
+                String firstName;
+                String lastName;
+                String rank;
+                int [] antalLan;
+                boolean isBanned;
+                int numOfBans;
+                System.out.println("Personal number: ");
+
                 personalnumber = scan.nextInt();
 
                 scan.nextLine();
                 System.out.print("First name: ");
-                String firstName = scan.nextLine();
+                //String firstName = scan.nextLine();
 
                 System.out.print("Last name: ");
-                String lastName = scan.nextLine();
+                //String lastName = scan.nextLine();
 
                 System.out.println("Your role at the university: ");
                 String role = scan.nextLine();
@@ -53,5 +64,5 @@ public class menu {
         }
         while (choice != 5);
         System.out.println("Good bye!");
-    }
-}
+
+    }}

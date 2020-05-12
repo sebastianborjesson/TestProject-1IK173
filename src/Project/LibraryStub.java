@@ -5,15 +5,15 @@ import java.util.List;
 
 public class LibraryStub extends LibraryStore{
 
-    List<Member> members = null;
+    ArrayList<Member> members;
 
 
-    public void MemberStub(){
+    public LibraryStub(){
         members = new ArrayList<Member>();
     }
 
-    public void addMember(String fNamn, String eNamn, int pNummer){
-        Member m = new Member(fNamn, eNamn, pNummer);
+    public void addMember(String fNamn, String eNamn, String rank, int pNummer){
+        Member m = new Member(pNummer, fNamn, eNamn, rank);
         members.add(m);
 
     }

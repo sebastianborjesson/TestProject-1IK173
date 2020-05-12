@@ -1,6 +1,9 @@
 package Project;
 
-public class Librarian implements ILibrarian {
+import java.util.Iterator;
+import java.util.function.Consumer;
+
+public class Librarian implements ILibrarian, Iterator {
 
     private LibraryStore ls;
     private LibraryStub lst;
@@ -8,35 +11,53 @@ public class Librarian implements ILibrarian {
     public Librarian(LibraryStore ls){
         this.ls = ls;
     }
+    public Librarian(){
+    }
 
     public void LibraryStubArray (LibraryStub lst) {
         this.lst = lst;
     }
-
+    Member[] memberList = new Member[10];
     @Override
-    public void createAccount(String fnamn, String lnamn, String rank, int pnummer) {
-        Member[] createAccount = ls.getAllMembers(fnamn, lnamn, pnummer);
-        for (Member m: createAccount) {
+    public void createAccount(LibraryStub lbs, String fnamn, String lnamn, String rank, int pnummer) {
+
+        if (lbs.members.isEmpty()) {
+            lbs.addMember(fnamn, lnamn, rank, pnummer);
+        }
+        Iterator<Member>it=lbs.members.iterator();
+        while (it.hasNext()) {
+            Member m=it.next();
             if (m.getPersonalNum() == pnummer) {
                 System.out.println("User already exists.");
             } else if (m.getPersonalNum() == pnummer && m.isBanned()) {
                 System.out.println("This member is banned and can't be registred");
             } else {
-                lst.addMember(fnamn, lnamn, pnummer);
+                lbs.addMember(fnamn, lnamn, rank, pnummer);
             }
 
         }
 
-    }
-
-    @Override
-    public void checkBanned() {
 
     }
 
     @Override
-    public void suspendMember() {
+    public boolean checkBanned(Member member) {
+       /* for (Member m :createAccount) {
+            if (m.isBanned()){
+                return true;
+            }
+        } */return false;
+    }
+    public Member getMedlem(){
+        /*for (Member m:createAccount) {
+            return m;
+        }*/return null;
+    }
 
+
+    @Override
+    public void suspendMember(Member member) {
+        return;
     }
 
     @Override
@@ -68,4 +89,25 @@ public class Librarian implements ILibrarian {
     public void doesItemExist() {
 
     }
+
+    @Override
+    public boolean hasNext() {
+        return false;
+    }
+
+    @Override
+    public Object next() {
+        return null;
+    }
+
+    @Override
+    public void remove() {
+
+    }
+
+    @Override
+    public void forEachRemaining(Consumer action) {
+
+    }
 }
+

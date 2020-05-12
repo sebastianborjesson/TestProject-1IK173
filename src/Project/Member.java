@@ -8,10 +8,25 @@ public class Member {
     private String rank;
     private int [] numOfLoans = new int[10];
     private String [] borrowedBooks = new String[10];
-    private boolean isBanned;
+    private boolean isBanned=false;
     private int numOfBans;
 
     public Member() {
+    }
+
+
+    public Member(int personalNum, String firstName, String lastName, String rank) {
+        this.personalNum = personalNum;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.rank = rank;
+    }
+
+    public Member(int ID, int personalNum, String firstName, String lastName, String rank) {
+        this.personalNum = personalNum;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.rank = rank;
     }
 
     public Member(int ID, int personalNum, String firstName, String lastName, String rank, int[] numOfLoans, boolean isBanned, int numOfBans) {
