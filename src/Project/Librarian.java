@@ -26,7 +26,7 @@ public class Librarian implements ILibrarian, Iterator {
             lbs.addMember(fnamn, lnamn, rank, pnummer);
         }
         Iterator<Member>it=lbs.members.iterator();
-        while (it.hasNext()) {
+        while (it.forEachRemaining();) {
             Member m=it.next();
 
             if (m.getPersonalNum() == pnummer) {
