@@ -2,9 +2,25 @@ package Project;
 
 public class Librarian implements ILibrarian {
 
+    private LibraryStore ls;
+
+    public Librarian(LibraryStore ls){
+        this.ls = ls;
+    }
+
     @Override
     public void createAccount(String fnamn, String lnamn, String rank, int pnummer) {
-        Member nymember = new Member("viktor", "Bolinder", "Student", 213123);
+        Member[] createAccount = ls.getAllMembers(fnamn, lnamn, pnummer);
+        for (Member m: createAccount) {
+            if (m.getPersonalNum() == pnummer) {
+                System.out.println("User already exists.");
+            } else if (m.getPersonalNum() == pnummer && m.isBanned()) {
+                System.out.println("This member is banned and can't be registred");
+            } else {
+
+            }
+
+        }
 
     }
 

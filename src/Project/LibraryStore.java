@@ -12,6 +12,18 @@ public class LibraryStore implements ILibraryStore {
     }
 
     @Override
+    public Member[] getPersonalNumber(int pNummer) {
+        Member[] p = new Member[0];
+        return p;
+    }
+
+    @Override
+    public Member[] checkBanned(boolean isBanned) {
+        Member[] iB = new Member[0];
+        return iB;
+    }
+
+    @Override
     public Member[] getAllMembers(String firstName, String lastName, int personalNum) {
         Member[] m = new Member[0];
         return m;
