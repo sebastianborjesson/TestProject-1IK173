@@ -8,7 +8,7 @@ public interface ILibrarian {
 
     void suspendMember(Member member);
 
-    void deleteMember();
+    void deleteMember(int id);
 
     boolean borrowBook(String title, int id);
 

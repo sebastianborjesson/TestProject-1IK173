@@ -66,7 +66,7 @@ public class menu extends Librarian{
 
 
                 System.out.print("Enter your identification code: ");
-               // int id = scan.nextInt();
+                int id = scan.nextInt();
 
 
 
@@ -93,6 +93,12 @@ public class menu extends Librarian{
                 for (Member m: members) {
                     System.out.println(m.getFirstName());
                 }
+            }
+            if (choice == 6) {
+                System.out.print("Enter the id of the user that you wish to remove: ");
+                int deleteId;
+                deleteId = scan.nextInt();
+                lib.deleteMember(deleteId);
             }
         }
         while (choice != 7);

@@ -11,6 +11,7 @@ public interface ILibraryStore {
 
     void addMember(int ID,int personalNum, String firstName, String lastName, String role );
 
+    void removeMember(int id);
 
     Book[] getAllBooks();
 

@@ -98,8 +98,24 @@ public class Librarian implements ILibrarian {
     }
 
     @Override
-    public void deleteMember() {
+    public void deleteMember(int id) {
+        Member[] members = libraryStore.getAllMembers();
+        BannedMembers[] bannedMembers = libraryStore.getAllBannedMembers();
 
+        for (BannedMembers bm: bannedMembers) {
+            if (bm.getPersonalNum() == id)  {
+                libraryStore.removeMember(id);
+            }
+        }
+        for (Member m: members) {
+            if (m.getID() != id)  {
+                System.out.println("Didnt find the user");
+            }
+            else {
+                libraryStore.removeMember(id);
+                System.out.println("The user has been removed from the system " + "where the id was: " + id);
+            }
+        }
     }
 
     @Override

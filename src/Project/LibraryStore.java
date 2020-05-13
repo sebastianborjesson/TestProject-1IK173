@@ -69,7 +69,7 @@ public class LibraryStore implements ILibraryStore {
 
         try(Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
 
-                "root", "abc123")) {
+                "root", "juzzkehunter124")) {
             Statement stmt = conn.createStatement();
             ResultSet result = stmt.executeQuery("SELECT pNumber , ID FROM 1ik173project.bannedmembers");
             while (result.next()) {
@@ -106,7 +106,7 @@ public class LibraryStore implements ILibraryStore {
 
         try(Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
 
-                "root", "abc123")) {
+                "root", "juzzkehunter124")) {
             Statement stmt = conn.createStatement();
             ResultSet result = stmt.executeQuery("select * from member");
             while (result.next()) {
@@ -158,7 +158,7 @@ public class LibraryStore implements ILibraryStore {
                 "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
 
 
-                "root", "abc123")) {
+                "root", "juzzkehunter124")) {
 
 
 
@@ -179,4 +179,20 @@ public class LibraryStore implements ILibraryStore {
         Book[] books = new Book[arrayListBooks.size()];
         return arrayListBooks.toArray(books);
     }
+    @Override
+    public void removeMember(int id) {
+        try(Connection conn = DriverManager.getConnection(
+        "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
+                "root", "juzzkehunter124")) {
+            Statement statement = conn.createStatement();
+             statement.executeUpdate("DELETE FROM member WHERE member.ID = " + id + ";");
+
+            statement.close();
+        }
+        catch (SQLException ex) {
+            System.out.println("Something went wrong...");
+        }
+    }
+
+
 }
