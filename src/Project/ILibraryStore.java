@@ -1,7 +1,7 @@
 package Project;
 
 public interface ILibraryStore {
-    BannedMembers[] getAllBannedMembers(int personalNum);
+    BannedMembers[] getAllBannedMembers();
 
     Member[] getPersonalNumber(int pNummer);
 
@@ -9,10 +9,9 @@ public interface ILibraryStore {
 
     Member[] getAllMembers(String firstName, String lastName, String rank, int personalNum);
 
-    Member[] getMember(String firstName, String lastName, int personalNum);
+    Member[] addMember(String firstName, String lastName, int personalNum);
 
 
     Book[] getAllBooks();
 
-    Member[] getAllMembers();
 }

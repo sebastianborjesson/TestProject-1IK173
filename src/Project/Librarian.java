@@ -23,9 +23,9 @@ public class Librarian implements ILibrarian {
 
     @Override
     
-    public void createAccount(LibraryStub lbs, String fnamn, String lnamn, String rank, int pnummer) {
+   public void createAccount(LibraryStub lbs, String fnamn, String lnamn, String rank, int pnummer) {
 
-        if (lbs.members.isEmpty()) {
+ /*       if (lbs.members.isEmpty()) {
             lbs.addMember(fnamn, lnamn, rank, pnummer);
         }
         Iterator<Member> it = lbs.members.iterator();
@@ -41,7 +41,12 @@ public class Librarian implements ILibrarian {
             }
 
         }
+
+  */
+
     }
+
+
 
     @Override
     public boolean checkBanned(Member member) {

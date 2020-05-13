@@ -17,7 +17,7 @@ public class LibraryStub extends LibraryStore{
         members.add(m);
     }
 
-    public Member[] getAllMembers(){
+    public Member[] addAllMembers(){
         Member[] arr = new Member[members.size()];
 
         return members.toArray(arr);
