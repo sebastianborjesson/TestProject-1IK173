@@ -12,7 +12,7 @@ public interface ILibraryStore {
     Member[] getMember(String firstName, String lastName, int personalNum);
 
 
-    Book[] getAllBooks(String Title);
+    Book[] getAllBooks();
 
     Member[] getAllMembers();
 }

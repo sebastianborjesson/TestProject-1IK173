@@ -92,7 +92,14 @@ public class Librarian implements ILibrarian {
     }
 
     @Override
-    public void doesItemExist() {
+    public void doesItemExist(String title) {
+        //ls.getAllBooks();
+        if (title.equals(ls.getAllBooks())) {
+            System.out.println("The book is available");
+
+        } else {
+            System.out.println("Were sorry, the book is not available");
+        }
 
     }
 }

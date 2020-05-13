@@ -18,5 +18,5 @@ public interface ILibrarian {
 
     void isItemAvailable();
 
-    void doesItemExist();
+    void doesItemExist(String title);
 }

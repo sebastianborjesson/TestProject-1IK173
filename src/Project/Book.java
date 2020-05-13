@@ -4,8 +4,6 @@ public class Book {
     private String title;
     private String author;
     private int isbn;
-    private boolean borrowedStatus;
-    private String storePos;
     private int numberOfEx;
     private int numberOfBorrowedEx;
 
@@ -16,8 +14,6 @@ public class Book {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
-        this.borrowedStatus = borrowedStatus;
-        this.storePos = storePos;
         this.numberOfEx = numberOfEx;
         this.numberOfBorrowedEx = numberOfBorrowedEx;
     }
@@ -44,22 +40,6 @@ public class Book {
 
     public void setIsbn(int isbn) {
         this.isbn = isbn;
-    }
-
-    public boolean isBorrowedStatus() {
-        return borrowedStatus;
-    }
-
-    public void setBorrowedStatus(boolean borrowedStatus) {
-        this.borrowedStatus = borrowedStatus;
-    }
-
-    public String getStorePos() {
-        return storePos;
-    }
-
-    public void setStorePos(String storePos) {
-        this.storePos = storePos;
     }
 
     public int getNumberOfEx() {

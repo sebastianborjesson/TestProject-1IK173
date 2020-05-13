@@ -15,7 +15,7 @@ public class TestProject {
 
         System.out.println("Hej");
 
-        cut.createAccount("hej","hej", 123);
+        //cut.createAccount("hej","hej", 123);
 
         when(ls.getAllMembers()).thenReturn( new Member[]{ new Member("hej","hej",123)});
 
