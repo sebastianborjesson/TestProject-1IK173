@@ -15,7 +15,7 @@ public class Meny extends Librarian {
 
 
 
-        lb.createAccount(23123, "sda", "sda", "rsdas");
+        //lb.createAccount(23123, "sda", "sda", "rsdas");
        /* for (Member m : lbs.getAllMembers()) {
             System.out.println(m.getPersonalNum());
         }

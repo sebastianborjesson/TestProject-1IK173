@@ -31,6 +31,7 @@ public class LibraryStore implements ILibraryStore {
     private static String username;
     private static String password;
 
+    /*
     private static void init(String filename) {
         Properties props = new Properties();
         try(FileInputStream in = new FileInputStream(filename)) {
@@ -60,14 +61,17 @@ public class LibraryStore implements ILibraryStore {
         return DriverManager.getConnection(url, username, password);
     }
 
+     */
+
     @Override
     public BannedMembers[] getAllBannedMembers() {
         bannedMembersArrayList.clear();
 
-        init("database.properties");
-        try(Connection conn = getConnection()) {
+        try(Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
+
+                "root", "abc123")) {
             Statement stmt = conn.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT pNumber , ID FROM project1ik173.bannedmembers");
+            ResultSet result = stmt.executeQuery("SELECT pNumber , ID FROM 1ik173project.bannedmembers");
             while (result.next()) {
                 BannedMembers BM = new BannedMembers(result.getInt("pNumber") , result.getInt("ID"));
                 bm1.add(BM);
@@ -100,15 +104,15 @@ public class LibraryStore implements ILibraryStore {
     public Member[] getAllMembers() {
 
 
-        init("database.properties");
-        try(Connection conn = getConnection()) {
+        try(Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
+
+                "root", "abc123")) {
             Statement stmt = conn.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT * FROM project1ik173.member");
+            ResultSet result = stmt.executeQuery("select * from member");
             while (result.next()) {
                 Member m = new Member(result.getInt(1) , result.getInt(2), result.getString(3),result.getString(4), result.getString(5), result.getInt(6), result.getBoolean(7), result.getInt(8) );
                 memberArrayList.add(m);
             }
-
             stmt.close();
 
         } catch (SQLException ex) {
@@ -126,9 +130,11 @@ public class LibraryStore implements ILibraryStore {
         boolean isBanned = false;
         int numbOfBan = 0;
 
-        init("database.properties");
-        try(Connection conn = getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO project1ik173.member value (?,?,?,?,?,?,?,?)");
+
+        try(Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
+
+                "root", "abc123")) {
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO member value (?,?,?,?,?,?,?,?)");
             ps.setInt(1, ID);
             ps.setInt(2, personalNum);
             ps.setString(3, firstName);
@@ -151,11 +157,11 @@ public class LibraryStore implements ILibraryStore {
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
 
-                "root", "juzzkehunter124")) {
+                "root", "abc123")) {
 
 
             Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery("SELECT project1ik173.book.title, project1ik173.book.author from project1ik173.book");
+            ResultSet result = statement.executeQuery("SELECT book.title, book.author from book");
 
             while(result.next()) {
 

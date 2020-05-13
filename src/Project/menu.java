@@ -22,6 +22,7 @@ public class menu extends Librarian{
             System.out.println("1. Register a new user to the library!");
             System.out.println("2. Rent book");
             System.out.println("3. Return book");
+            System.out.println("4. Check members of database");     //Tillfällig för hjälp
             System.out.println("6. Remove existing user");
             System.out.println("7. Close the system");
             System.out.print("Make your choice: -> ");
@@ -74,6 +75,13 @@ public class menu extends Librarian{
                 System.out.println("If you like to return a book, please enter your userid: ");
                 int userId;
                 userId = scan.nextInt();
+            }
+            if (choice == 4) {
+                Member [] members = ls.getAllMembers();
+
+                for (Member m: members) {
+                    System.out.println(m.getFirstName());
+                }
             }
         }
         while (choice != 7);
