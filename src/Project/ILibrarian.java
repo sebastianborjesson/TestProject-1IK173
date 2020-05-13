@@ -1,7 +1,7 @@
 package Project;
 
 public interface ILibrarian {
-    void createAccount(LibraryStub lbs, String fnamn, String lnamn, String rank, int pnummer);
+    void createAccount(int pnummer, String fnamne, String lname, String role);
 
 
    boolean checkBanned(Member member);

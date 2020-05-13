@@ -23,11 +23,19 @@ public class LibraryStub extends LibraryStore{
             break;
             }
         }
-    }*/
+    }
     public Member[] addAllMembers(){
+        members.add(m);
+    }
+
+
+     */
+  /*  public Member[] addAllMembers(){
         Member[] arr = new Member[members.size()];
 
         return members.toArray(arr);
     }
+
+   */
 
 }

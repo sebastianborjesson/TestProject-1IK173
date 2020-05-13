@@ -6,7 +6,7 @@ public class Member {
     private String firstName;
     private String lastName;
     private String rank;
-    private int [] numOfLoans = new int[10];
+    private int numOfLoans;
     private String [] borrowedBooks = new String[10];
     private boolean isBanned=false;
     private int numOfBans;
@@ -29,7 +29,7 @@ public class Member {
         this.rank = rank;
     }
 
-    public Member(int ID, int personalNum, String firstName, String lastName, String rank, int[] numOfLoans, boolean isBanned, int numOfBans) {
+    public Member(int ID, int personalNum, String firstName, String lastName, String rank, int numOfLoans, boolean isBanned, int numOfBans) {
         this.ID = ID;
         this.personalNum = personalNum;
         this.firstName = firstName;
@@ -86,11 +86,11 @@ public class Member {
         this.rank = rank;
     }
 
-    public int[] getNumOfLoans() {
+    public int getNumOfLoans() {
         return numOfLoans;
     }
 
-    public void setNumOfLoans(int[] numOfLoans) {
+    public void setNumOfLoans(int numOfLoans) {
         this.numOfLoans = numOfLoans;
     }
 

@@ -6,12 +6,22 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 
 
 public class LibraryStore implements ILibraryStore {
+
+
+        private List<BannedMembers> bm1;
+        private List<Member> mem;
+
+        public LibraryStore(){
+            bm1 = new ArrayList<BannedMembers>();
+            mem = new ArrayList<Member>();
+        }
 
         ArrayList<Member> memberArrayList = new ArrayList<>();
         ArrayList<Book> arrayListBooks = new ArrayList<>();
@@ -53,20 +63,24 @@ public class LibraryStore implements ILibraryStore {
     @Override
     public BannedMembers[] getAllBannedMembers() {
         bannedMembersArrayList.clear();
+
         init("database.properties");
         try(Connection conn = getConnection()) {
             Statement stmt = conn.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT * FROM project1ik173.bannedmembers");
+            ResultSet result = stmt.executeQuery("SELECT pNumber , ID FROM project1ik173.bannedmembers");
             while (result.next()) {
-                BannedMembers BM = new BannedMembers(result.getInt("pNummer") , result.getInt("ID"));
-                bannedMembersArrayList.add(BM);
+                BannedMembers BM = new BannedMembers(result.getInt("pNumber") , result.getInt("ID"));
+                bm1.add(BM);
             }
+
+            stmt.close();
+
         } catch (SQLException ex) {
             System.out.println("Something went wrong: " + ex.getMessage());
         }
 
-        BannedMembers[] bannedMembers = new BannedMembers[bannedMembersArrayList.size()];
-        return bannedMembersArrayList.toArray(bannedMembers);
+        BannedMembers[] bannedMembers = new BannedMembers[bm1.size()];
+        return bm1.toArray(bannedMembers);
     }
 
 
@@ -83,16 +97,51 @@ public class LibraryStore implements ILibraryStore {
     }
 
     @Override
-    public Member[] getAllMembers(String firstName, String lastName, String rank, int personalNum) {
-        Member[] m = new Member[0];
-        return m;
+    public Member[] getAllMembers() {
+
+
+        init("database.properties");
+        try(Connection conn = getConnection()) {
+            Statement stmt = conn.createStatement();
+            ResultSet result = stmt.executeQuery("SELECT * FROM project1ik173.member");
+            while (result.next()) {
+                Member m = new Member(result.getInt(1) , result.getInt(2), result.getString(3),result.getString(4), result.getString(5), result.getInt(6), result.getBoolean(7), result.getInt(8) );
+                memberArrayList.add(m);
+            }
+
+            stmt.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Something went wrong: " + ex.getMessage());
+        }
+
+        Member[] members = new Member[memberArrayList.size()];
+        return memberArrayList.toArray(members);
+
     }
 
     @Override
-    public Member[] addMember(String firstName, String lastName, int personalNum){
-        Member[] m = new Member[0];
-        return m;
+    public void addMember(int ID,int personalNum, String firstName, String lastName, String role ){
+        int numbOfLoans = 0;
+        boolean isBanned = false;
+        int numbOfBan = 0;
 
+        init("database.properties");
+        try(Connection conn = getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO project1ik173.member value (?,?,?,?,?,?,?,?)");
+            ps.setInt(1, ID);
+            ps.setInt(2, personalNum);
+            ps.setString(3, firstName);
+            ps.setString(4, lastName);
+            ps.setString(5, role);
+            ps.setInt(6,numbOfLoans);
+            ps.setBoolean(7, isBanned);
+            ps.setInt(8, numbOfBan);
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("Something went wrong: " + ex.getMessage());
+        }
     }
 
     @Override
@@ -106,7 +155,7 @@ public class LibraryStore implements ILibraryStore {
 
 
             Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery("SELECT book.title, book.author from book");
+            ResultSet result = statement.executeQuery("SELECT project1ik173.book.title, project1ik173.book.author from project1ik173.book");
 
             while(result.next()) {
 
@@ -115,7 +164,7 @@ public class LibraryStore implements ILibraryStore {
                 //System.out.println("Book: " + result.getString(1) + " | Author: " + result.getString(2));
 
             }
-            statement.close();
+            //statement.close();
         }
         catch (SQLException ex) {
             System.out.println("Something went wrong...");

@@ -7,9 +7,9 @@ public interface ILibraryStore {
 
     Member[] checkBanned(boolean isBanned);
 
-    Member[] getAllMembers(String firstName, String lastName, String rank, int personalNum);
+    Member[] getAllMembers();
 
-    Member[] addMember(String firstName, String lastName, int personalNum);
+    void addMember(int ID,int personalNum, String firstName, String lastName, String role );
 
 
     Book[] getAllBooks();

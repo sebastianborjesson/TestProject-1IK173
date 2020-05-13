@@ -1,16 +1,17 @@
 package Project;
 
 import java.util.Iterator;
+import java.util.Random;
 import java.util.function.Consumer;
 
 
 public class Librarian implements ILibrarian {
 
-    private LibraryStore ls;
+    private LibraryStore libraryStore;
     private LibraryStub lst;
 
     public Librarian(LibraryStore ls) {
-        this.ls = ls;
+        libraryStore = ls;
     }
 
     public Librarian() {
@@ -24,13 +25,30 @@ public class Librarian implements ILibrarian {
 
     @Override
     
-   public void createAccount(LibraryStub lbs, String fnamn, String lnamn, String rank, int pnummer) {
+   public void createAccount(int pnummer, String fnamn, String lnamn, String role) {
+
+        Member[] member = libraryStore.getAllMembers();
+        Random rnd = new Random();
+        int id = rnd.nextInt(9999 - 1000) + 1000;
+        int counter = member.length;
+
+        for (Member m  : member ) {
+            if(m.getPersonalNum() == pnummer && m.isBanned()  ){
+                System.out.println("This person is banned from entering the system! The process will not be allowed to continue.");
+            } else if (m.getPersonalNum() == pnummer){
+                System.out.println("This person already exist in the system");
+            } else if (m.getPersonalNum() != pnummer ) {
+                libraryStore.addMember(id,pnummer,fnamn,lnamn,role);
+            }
+
+        }
 
 
- /*       if (lbs.members.isEmpty()) {
+ /*       if (lbs.member.isEmpty()) {
+>>>>>>> Stashed changes
             lbs.addMember(fnamn, lnamn, rank, pnummer);
         }
-        Iterator<Member> it = lbs.members.iterator();
+        Iterator<Member> it = lbs.member.iterator();
         while (it.hasNext()) {
             Member m = it.next();
 
@@ -107,12 +125,11 @@ public class Librarian implements ILibrarian {
     @Override
     public boolean doesItemExist(String title) {
 
-        Book[] books = ls.getAllBooks();
+        Book[] books = libraryStore.getAllBooks();
         for (Book book: books) {
             if (!title.equals(book.getTitle())) {
                 System.out.println("Boken fanns inte");
                 return false;
-
             }
         }
         System.out.println("Boken fanns");
