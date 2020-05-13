@@ -2,18 +2,71 @@ package Project;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.List;
+import java.util.Properties;
+
+
 
 public class LibraryStore implements ILibraryStore {
 
-    private ArrayList<Book> arrayListBooks = new ArrayList<>();
+        ArrayList<Member> memberArrayList = new ArrayList<>();
+        ArrayList<Book> arrayListBooks = new ArrayList<>();
+        ArrayList<BannedMembers> bannedMembersArrayList = new ArrayList<>();
+
+    private static String url;
+    private static String username;
+    private static String password;
+
+    private static void init(String filename) {
+        Properties props = new Properties();
+        try(FileInputStream in = new FileInputStream(filename)) {
+            props.load(in);
+            String driver = props.getProperty("jdbc.driver");
+            url = props.getProperty("jdbc.url");
+            username = props.getProperty("jdbc.username");
+            if(username == null){
+                username = "";
+            }
+            password = props.getProperty("jdbc.password");
+            if(password == null){
+                password = "";
+            }
+            if(driver!=null){
+                Class.forName(driver);
+            }
+        } catch (IOException ex) {
+            System.out.println("Something went wrong... " + ex.getMessage());
+        } catch (ClassNotFoundException cnfe) {
+            System.out.println("Unable to load driver." + cnfe.getMessage());
+        }
+    }
+
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(url, username, password);
+    }
 
     @Override
-    public BannedMembers[] getAllBannedMembers(int personalNum) {
-        BannedMembers[] bM = new BannedMembers[0];
-        return bM;
+    public BannedMembers[] getAllBannedMembers() {
+        bannedMembersArrayList.clear();
+        init("database.properties");
+        try(Connection conn = getConnection()) {
+            Statement stmt = conn.createStatement();
+            ResultSet result = stmt.executeQuery("SELECT * FROM project1ik173.bannedmembers");
+            while (result.next()) {
+                BannedMembers BM = new BannedMembers(result.getInt("pNummer") , result.getInt("ID"));
+                bannedMembersArrayList.add(BM);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Something went wrong: " + ex.getMessage());
+        }
+
+        BannedMembers[] bannedMembers = new BannedMembers[bannedMembersArrayList.size()];
+        return bannedMembersArrayList.toArray(bannedMembers);
     }
+
 
     @Override
     public Member[] getPersonalNumber(int pNummer) {
@@ -34,13 +87,7 @@ public class LibraryStore implements ILibraryStore {
     }
 
     @Override
-    public Member[] getAllMembers() {
-        Member[] m = new Member[0];
-        return m;
-    }
-
-    @Override
-    public Member[] getMember(String firstName, String lastName, int personalNum){
+    public Member[] addMember(String firstName, String lastName, int personalNum){
         Member[] m = new Member[0];
         return m;
 
