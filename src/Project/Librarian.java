@@ -35,10 +35,13 @@ public class Librarian implements ILibrarian {
         for (Member m  : member ) {
             if(m.getPersonalNum() == pnummer && m.isBanned()  ){
                 System.out.println("This person is banned from entering the system! The process will not be allowed to continue.");
+                counter--;
             } else if (m.getPersonalNum() == pnummer){
                 System.out.println("This person already exist in the system");
-            } else if (m.getPersonalNum() != pnummer ) {
-                libraryStore.addMember(id,pnummer,fnamn,lnamn,role);
+                counter--;
+            }
+            if (counter == 0) {
+                libraryStore.addMember(id, pnummer, fnamn, lnamn, role);
             }
 
         }
