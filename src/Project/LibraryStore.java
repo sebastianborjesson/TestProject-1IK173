@@ -157,18 +157,19 @@ public class LibraryStore implements ILibraryStore {
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
 
+
                 "root", "abc123")) {
 
 
+
             Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery("SELECT book.title, book.author from book");
+            ResultSet result = statement.executeQuery("SELECT * from book");
 
             while(result.next()) {
 
                 Book book = new Book(result.getString(1), result.getString(2));
                 arrayListBooks.add(book);
                 //System.out.println("Book: " + result.getString(1) + " | Author: " + result.getString(2));
-
             }
             //statement.close();
         }

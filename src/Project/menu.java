@@ -54,14 +54,25 @@ public class menu extends Librarian{
                     System.out.println("Book title: " + b.getTitle() + " |----| Author of the book: " + b.getAuthor());
                 }
 
-                System.out.print("Write the books title that you wish to loan: ");
-                String bookTitle = scan.next();
+
+                String bookTitle;
+                System.out.print("Write the books title that you wish to loan:");
+                bookTitle= scan.nextLine();
+
                 bookTitle = scan.nextLine();
+                if (lib.doesItemExist(bookTitle)){
+                    System.out.println("Boken fanns");
+                }else {System.out.println("Boken fanns inte");}
+
 
                 System.out.print("Enter your identification code: ");
-                int id = scan.nextInt();
+               // int id = scan.nextInt();
 
-                //lib.doesItemExist(bookTitle);
+
+
+
+
+
                 //lib.isItemAvailable();
 
 

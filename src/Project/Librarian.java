@@ -123,6 +123,7 @@ public class Librarian implements ILibrarian {
     @Override
     public void isItemAvailable() {
 
+
     }
 
     @Override
@@ -130,15 +131,12 @@ public class Librarian implements ILibrarian {
 
         Book[] books = libraryStore.getAllBooks();
         for (Book book: books) {
-            if (!title.equals(book.getTitle())) {
-                System.out.println("Boken fanns inte");
-                return false;
+
+            if (title.equals(book.getTitle())) {
+                return true;
+
             }
-        }
-        System.out.println("Boken fanns");
-        return true;
-
-
+        }return false;
     }
 }
 
