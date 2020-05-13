@@ -67,9 +67,9 @@ public class LibraryStore implements ILibraryStore {
     public BannedMembers[] getAllBannedMembers() {
         bannedMembersArrayList.clear();
 
-        try(Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-
-                "root", "juzzkehunter124")) {
+        try(Connection conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
+                "root", "abc123")) {
             Statement stmt = conn.createStatement();
             ResultSet result = stmt.executeQuery("SELECT pNumber , ID FROM 1ik173project.bannedmembers");
             while (result.next()) {
@@ -106,7 +106,7 @@ public class LibraryStore implements ILibraryStore {
 
         try(Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
 
-                "root", "juzzkehunter124")) {
+                "root", "abc123")) {
             Statement stmt = conn.createStatement();
             ResultSet result = stmt.executeQuery("select * from member");
             while (result.next()) {
@@ -131,9 +131,10 @@ public class LibraryStore implements ILibraryStore {
         int numbOfBan = 0;
 
 
-        try(Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-
+        try(Connection conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
                 "root", "abc123")) {
+
             PreparedStatement ps = conn.prepareStatement("INSERT INTO member value (?,?,?,?,?,?,?,?)");
             ps.setInt(1, ID);
             ps.setInt(2, personalNum);
@@ -156,11 +157,7 @@ public class LibraryStore implements ILibraryStore {
 
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-
-
-                "root", "juzzkehunter124")) {
-
-
+                "root", "abc123")) {
 
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT * from book");
@@ -183,7 +180,7 @@ public class LibraryStore implements ILibraryStore {
     public void removeMember(int id) {
         try(Connection conn = DriverManager.getConnection(
         "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-                "root", "juzzkehunter124")) {
+                "root", "abc123")) {
             Statement statement = conn.createStatement();
              statement.executeUpdate("DELETE FROM member WHERE member.ID = " + id + ";");
 
@@ -193,6 +190,4 @@ public class LibraryStore implements ILibraryStore {
             System.out.println("Something went wrong...");
         }
     }
-
-
 }
