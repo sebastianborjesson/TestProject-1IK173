@@ -47,29 +47,27 @@ public class menu extends Librarian{
             if (choice == 2) {
                 System.out.println("If you like to rent a book, here is the current available books that the library offers: ");
 
-                //Book[] availablebooks = ls.getAllBooks();       //Hämta böcker
-                //ls.getAllBooks();
+                      //Hämta böcker
                 Book[] books = ls.getAllBooks();
                 for (Book b: books) {
-                    System.out.println(b.getTitle() + b.getAuthor());
+                    System.out.println("Book title: " + b.getTitle() + " |----| Author of the book: " + b.getAuthor());
                 }
-
 
                 System.out.print("Write the books title that you wish to loan: ");
                 String bookTitle = scan.next();
                 bookTitle = scan.nextLine();
 
-
                 System.out.print("Enter your identification code: ");
                 int id = scan.nextInt();
 
-
-
                 //lib.doesItemExist(bookTitle);
-
                 //lib.isItemAvailable();
 
 
+                    //Fortsättningsblock är arbeta på.
+                if (lib.borrowBook(bookTitle, id)) {
+                    System.out.println("Success! You have borrowed the book: " + bookTitle);
+                }
 
             }
             if (choice == 3) {

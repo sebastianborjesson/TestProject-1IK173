@@ -1,5 +1,7 @@
 package Project;
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.io.FileInputStream;
@@ -95,13 +97,7 @@ public class LibraryStore implements ILibraryStore {
 
     @Override
     public Book[] getAllBooks(){
-        arrayListBooks.clear();
-        /*try {
-            Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Driver loaded");
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Driver did not load");
-        }*/
+        arrayListBooks.clear();     //Clear array before select, else duplicates.
 
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
@@ -124,7 +120,6 @@ public class LibraryStore implements ILibraryStore {
         catch (SQLException ex) {
             System.out.println("Something went wrong...");
         }
-
         Book[] books = new Book[arrayListBooks.size()];
         return arrayListBooks.toArray(books);
     }

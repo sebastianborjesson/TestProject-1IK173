@@ -82,8 +82,11 @@ public class Librarian implements ILibrarian {
     }
 
     @Override
-    public void borrowBook() {
+    public boolean borrowBook(String title, int id) {
+        
 
+
+        return false;
     }
 
     @Override

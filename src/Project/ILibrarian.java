@@ -10,7 +10,7 @@ public interface ILibrarian {
 
     void deleteMember();
 
-    void borrowBook();
+    boolean borrowBook(String title, int id);
 
     void returnBook();
 

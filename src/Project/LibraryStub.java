@@ -10,7 +10,7 @@ public class LibraryStub extends LibraryStore{
 
 
 
-    public LibraryStub(){
+    /*public LibraryStub(){
         members = new Member[10];
     }
     int plats=0;
@@ -23,7 +23,7 @@ public class LibraryStub extends LibraryStore{
             break;
             }
         }
-    }
+    }*/
     public Member[] addAllMembers(){
         Member[] arr = new Member[members.size()];
 
