@@ -48,8 +48,7 @@ public class LibraryStore implements ILibraryStore {
 
     @Override
     public Book[] getAllBooks(){
-        Book[] bookArray = new Book[12];
-
+        arrayListBooks.clear();
         /*try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded");
@@ -59,19 +58,23 @@ public class LibraryStore implements ILibraryStore {
 
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-                "root", "abc123")) {
+                "root", "juzzkehunter124")) {
 
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT book.title, book.author from book");
 
             while(result.next()) {
-                System.out.println("Book: " + result.getString(1) + " | Author: " + result.getString(2));
+                Book book = new Book(result.getString(1), result.getString(2));
+                arrayListBooks.add(book);
+                //System.out.println("Book: " + result.getString(1) + " | Author: " + result.getString(2));
             }
             statement.close();
         }
         catch (SQLException ex) {
             System.out.println("Something went wrong...");
         }
-        return bookArray;
+
+        Book[] books = new Book[arrayListBooks.size()];
+        return arrayListBooks.toArray(books);
     }
 }

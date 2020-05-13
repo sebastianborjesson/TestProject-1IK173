@@ -11,6 +11,11 @@ public class menu{
         Scanner scan = new Scanner(System.in);
         int choice;
 
+
+
+
+
+
         do {
             System.out.println("Welcome to the library! \n=============");
             System.out.println("In the menu below you will see the current options that the library has.");
@@ -43,18 +48,26 @@ public class menu{
                 System.out.println("If you like to rent a book, here is the current available books that the library offers: ");
 
                 //Book[] availablebooks = ls.getAllBooks();       //Hämta böcker
-                ls.getAllBooks();
+                //ls.getAllBooks();
+                Book[] books = ls.getAllBooks();
+                for (Book b: books) {
+                    System.out.println(b.getTitle() + b.getAuthor());
+                }
 
-
-                System.out.print("Enter your identification code: ");
-                int identificationcode;
-                identificationcode = scan.nextInt();
 
                 System.out.print("Write the books title that you wish to loan: ");
                 String bookTitle = scan.next();
-                lib.doesItemExist(bookTitle);
+                bookTitle = scan.nextLine();
 
-                lib.isItemAvailable();
+
+                System.out.print("Enter your identification code: ");
+                int id = scan.nextInt();
+
+
+
+                //lib.doesItemExist(bookTitle);
+
+                //lib.isItemAvailable();
 
 
 
