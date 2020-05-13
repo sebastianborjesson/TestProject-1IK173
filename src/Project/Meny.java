@@ -10,6 +10,7 @@ public class Meny extends Librarian {
         lb.createAccount(lbs,"Joakim", "Österberg","Student",12345);
         lb.createAccount(lbs,"Joakim", "Österberg","Student",12348);
         lb.createAccount(lbs,"Joakim", "Österberg","Student",12342);
+
         System.out.println(lb.getMedlem());*/
 
         LibraryStore lbs= new LibraryStore();
@@ -17,9 +18,8 @@ public class Meny extends Librarian {
             System.out.println(bm.getID());
 
         }
-        //lbs.getAllBannedMembers(1234567890);
 
 
-        }
+
     }
 

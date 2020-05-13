@@ -3,6 +3,7 @@ package Project;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
+
 public class Librarian implements ILibrarian {
 
     private LibraryStore ls;
@@ -25,6 +26,7 @@ public class Librarian implements ILibrarian {
     
    public void createAccount(LibraryStub lbs, String fnamn, String lnamn, String rank, int pnummer) {
 
+
  /*       if (lbs.members.isEmpty()) {
             lbs.addMember(fnamn, lnamn, rank, pnummer);
         }
@@ -34,11 +36,14 @@ public class Librarian implements ILibrarian {
 
             if (m.getPersonalNum() == pnummer) {
                 System.out.println("User already exists.");
-            } else if (m.getPersonalNum() == pnummer && m.isBanned()) {
-                System.out.println("This member is banned and can't be registred");
-            } else {
-                lbs.addMember(fnamn, lnamn, rank, pnummer);
             }
+            if (m.getPersonalNum() == pnummer && m.isBanned()) {
+                System.out.println("This member is banned and can't be registred");
+            }
+            else {
+               // lbs.addMember(fnamn, lnamn, rank, pnummer);
+            }
+            break;
 
         }
 
@@ -108,3 +113,4 @@ public class Librarian implements ILibrarian {
 
     }
 }
+
