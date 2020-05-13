@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.sql.*;
 
-public class menu{
+public class menu extends Librarian{
     public static void main(String[] args) {
         LibraryStore ls = new LibraryStore();
         Librarian lib = new Librarian(ls);

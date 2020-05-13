@@ -102,14 +102,19 @@ public class Librarian implements ILibrarian {
     }
 
     @Override
-    public void doesItemExist(String title) {
-        //ls.getAllBooks();
-        if (title.equals(ls.getAllBooks())) {
-            System.out.println("The book is available");
+    public boolean doesItemExist(String title) {
 
-        } else {
-            System.out.println("Were sorry, the book is not available");
+        Book[] books = ls.getAllBooks();
+        for (Book book: books) {
+            if (!title.equals(book.getTitle())) {
+                System.out.println("Boken fanns inte");
+                return false;
+
+            }
         }
+        System.out.println("Boken fanns");
+        return true;
+
 
     }
 }
