@@ -47,6 +47,8 @@ public class Librarian implements ILibrarian {
             } else if (m.getPersonalNum() == pnummer){
                 System.out.println("This person already exist in the system");
                 counter--;
+            } else {
+                counter--;
             }
             if (counter == 0) {
                 libraryStore.addMember(id, pnummer, fnamn, lnamn, role);
@@ -127,10 +129,31 @@ public class Librarian implements ILibrarian {
     }
 
     @Override
-    public boolean borrowBook(String title, int id, String role) {
+    public void borrowBook(String title, int id, String role) {
+
+        Member[] members = libraryStore.getAllMembers();
+        Book[] books = libraryStore.getAllBooks();
+
+        for (Book b: books) {
+            String isbn = b.getIsbn();
+            if (b.getIsbn().equals(isbn));
+        }
+
+        for (Member m : members) {
+            int numOfLoans = m.getNumOfLoans() ;
+            if (m.getID() == id && !m.isSuspended()) {
+                if(m.getRole().equals("Student")) {
+                    if (m.getNumOfLoans() < 3) {
+                        numOfLoans++;
+                        m.setNumOfLoans(numOfLoans);
+                        libraryStore.borrowBook(id, title, numOfLoans);
+                    }
+                }
+            }
 
 
-        return false;
+
+        }
     }
 
     @Override
@@ -144,8 +167,15 @@ public class Librarian implements ILibrarian {
     }
 
     @Override
-    public void isItemAvailable() {
-        //Gjord
+    public boolean isItemAvailable(String title) {
+        Book[] books = libraryStore.getAllBooks();
+        for (Book book: books) {
+
+            if (title.equals(book.getTitle())) {
+                return true;
+
+            }
+        }return false;
 
     }
 

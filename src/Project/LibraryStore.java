@@ -181,7 +181,7 @@ public class LibraryStore implements ILibraryStore {
     @Override
     public void removeMember(int id) {
         try(Connection conn = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/1ik173project?useSSL=false?allowPublicKeyRetrieval=true",
+        "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
                 "root", "Sturridge15")) {
             Statement statement = conn.createStatement();
              statement.executeUpdate("DELETE FROM member WHERE member.ID = " + id + ";");
@@ -190,6 +190,30 @@ public class LibraryStore implements ILibraryStore {
         }
         catch (SQLException ex) {
             System.out.println("Something went wrong...");
+        }
+    }
+
+    public void borrowBook(int ID, String title, int numOfLoans) {
+
+    try(Connection conn = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
+            "root", "Sturridge15")) {
+
+        PreparedStatement ps1 = conn.prepareStatement("UPDATE member set numOfLoans = ? where ID = ?");
+
+        ps1.setInt(1, numOfLoans);
+        ps1.setInt(2, ID);
+        ps1.executeUpdate();
+
+        PreparedStatement ps2 = conn.prepareStatement("INSERT into hasbook values (?,?)");
+
+        ps2.setString(1, title);
+        ps2.setInt(2, ID);
+        //ps2.setString(3, isbn);
+        ps2.executeUpdate();
+    }
+        catch (SQLException ex) {
+        System.out.println("Something went wrong...");
         }
     }
 }

@@ -10,13 +10,13 @@ public interface ILibrarian {
 
     void deleteMember(int id);
 
-    boolean borrowBook(String title, int id, String role);
+    void borrowBook(String title, int id, String role);
 
     void returnBook();
 
     void checkDeletedMember();
 
-    void isItemAvailable();
+    boolean isItemAvailable(String title);
 
     boolean doesItemExist(String title);
 }

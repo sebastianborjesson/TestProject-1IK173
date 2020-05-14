@@ -68,6 +68,7 @@ public class menu extends Librarian{
                 System.out.print("Enter your identification code: ");
                 int id = scan.nextInt();
 
+                System.out.println("Enter your role: ");
                 String role = scan.nextLine();
 
 
@@ -79,7 +80,7 @@ public class menu extends Librarian{
 
 
                     //Fortsättningsblock är arbeta på.
-                if (lib.borrowBook(bookTitle, id, role)) {
+                if (lib.borrowBook(bookTitle, id, role, isbn)) {
                     System.out.println("Success! You have borrowed the book: " + bookTitle);
                 }
 

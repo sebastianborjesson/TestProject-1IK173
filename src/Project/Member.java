@@ -7,7 +7,7 @@ public class Member {
     private int personalNum;
     private String firstName;
     private String lastName;
-    private String rank;
+    private String role;
     private int numOfLoans;
     private String [] borrowedBooks = new String[10];
     private boolean isSuspended=false;
@@ -22,22 +22,24 @@ public class Member {
         this.personalNum = personalNum;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.rank = rank;
+        this.role = rank;
     }
 
-    public Member(int ID, int personalNum, String firstName, String lastName, String rank) {
+    public Member(int ID, int personalNum, String firstName, String lastName, String role) {
         this.personalNum = personalNum;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.rank = rank;
+        this.role = role;
     }
 
-    public Member(int ID, int personalNum, String firstName, String lastName, String rank, int numOfLoans, boolean isSuspended, int numOfSusp, Date suspendedDate) {
+
+
+    public Member(int ID, int personalNum, String firstName, String lastName, String role, int numOfLoans, boolean isSuspended, int numOfSusp, Date suspendedDate) {
         this.ID = ID;
         this.personalNum = personalNum;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.rank = rank;
+        this.role = role;
         this.numOfLoans = numOfLoans;
         this.isSuspended = isSuspended;
         this.numOfSusp = numOfSusp;
@@ -98,12 +100,12 @@ public class Member {
         this.lastName = lastName;
     }
 
-    public String getRank() {
-        return rank;
+    public String getRole() {
+        return role;
     }
 
-    public void setRank(String rank) {
-        this.rank = rank;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public int getNumOfLoans() {

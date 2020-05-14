@@ -9,6 +9,8 @@ public interface ILibraryStore {
 
     Member[] getAllMembers();
 
+    void borrowBook(int ID, String title, int numOfLoans);
+
     void addMember(int ID,int personalNum, String firstName, String lastName, String role );
 
     void removeMember(int id);

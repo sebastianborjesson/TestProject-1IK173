@@ -3,7 +3,7 @@ package Project;
 public class Book {
     private String title;
     private String author;
-    private int isbn;
+    private String isbn;
     private int numberOfEx;
     private int numberOfBorrowedEx;
 
@@ -11,7 +11,7 @@ public class Book {
     }
 
 
-    public Book(String title, String author, int isbn, boolean borrowedStatus, String storePos, int numberOfEx, int numberOfBorrowedEx) {
+    public Book(String title, String author, String isbn, boolean borrowedStatus, String storePos, int numberOfEx, int numberOfBorrowedEx) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
@@ -40,11 +40,11 @@ public class Book {
         this.author = author;
     }
 
-    public int getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
