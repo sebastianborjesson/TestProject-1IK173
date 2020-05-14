@@ -28,13 +28,21 @@ public class Librarian implements ILibrarian {
    public void createAccount(int pnummer, String fnamn, String lnamn, String role) {
 
         Member[] member = libraryStore.getAllMembers();
+        BannedMembers[] bannedMembers = libraryStore.getAllBannedMembers();
         Random rnd = new Random();
         int id = rnd.nextInt(9999 - 1000) + 1000;
         int counter = member.length;
 
+        for(BannedMembers bm: bannedMembers) {
+            if (bm.getPersonalNum() == pnummer) {
+                System.out.println("This account is banned. Dont come back");
+            }
+        }
+
+
         for (Member m  : member ) {
-            if(m.getPersonalNum() == pnummer && m.isBanned()  ){
-                System.out.println("This person is banned from entering the system! The process will not be allowed to continue.");
+            if(m.getPersonalNum() == pnummer && m.isSuspended()  ){
+                System.out.println("This person is suspended from entering the system! The process will not be allowed to continue.");
                 counter--;
             } else if (m.getPersonalNum() == pnummer){
                 System.out.println("This person already exist in the system");
@@ -119,8 +127,7 @@ public class Librarian implements ILibrarian {
     }
 
     @Override
-    public boolean borrowBook(String title, int id) {
-        
+    public boolean borrowBook(String title, int id, String role) {
 
 
         return false;
@@ -133,12 +140,12 @@ public class Librarian implements ILibrarian {
 
     @Override
     public void checkDeletedMember() {
-
+            //Förmodligen kan vi ta bort
     }
 
     @Override
     public void isItemAvailable() {
-
+        //Gjord
 
     }
 

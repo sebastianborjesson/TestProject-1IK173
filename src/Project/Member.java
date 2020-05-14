@@ -1,5 +1,7 @@
 package Project;
 
+import java.util.Date;
+
 public class Member {
     private int ID;
     private int personalNum;
@@ -8,8 +10,9 @@ public class Member {
     private String rank;
     private int numOfLoans;
     private String [] borrowedBooks = new String[10];
-    private boolean isBanned=false;
-    private int numOfBans;
+    private boolean isSuspended=false;
+    private int numOfSusp;
+    private Date suspendedDate;
 
     public Member() {
         }
@@ -29,15 +32,32 @@ public class Member {
         this.rank = rank;
     }
 
-    public Member(int ID, int personalNum, String firstName, String lastName, String rank, int numOfLoans, boolean isBanned, int numOfBans) {
+    public Member(int ID, int personalNum, String firstName, String lastName, String rank, int numOfLoans, boolean isSuspended, int numOfSusp, Date suspendedDate) {
         this.ID = ID;
         this.personalNum = personalNum;
         this.firstName = firstName;
         this.lastName = lastName;
         this.rank = rank;
         this.numOfLoans = numOfLoans;
-        this.isBanned = isBanned;
-        this.numOfBans = numOfBans;
+        this.isSuspended = isSuspended;
+        this.numOfSusp = numOfSusp;
+        this.suspendedDate = suspendedDate;
+    }
+
+    public boolean isSuspended() {
+        return isSuspended;
+    }
+
+    public void setSuspended(boolean suspended) {
+        isSuspended = suspended;
+    }
+
+    public Date getSuspendedDate() {
+        return suspendedDate;
+    }
+
+    public void setSuspendedDate(Date suspendedDate) {
+        this.suspendedDate = suspendedDate;
     }
 
     public Member(String fNamn, String eNamn, int pNummer) {
@@ -94,19 +114,11 @@ public class Member {
         this.numOfLoans = numOfLoans;
     }
 
-    public boolean isBanned() {
-        return isBanned;
-    }
-
-    public void setBanned(boolean banned) {
-        isBanned = banned;
-    }
-
     public int getNumOfBans() {
-        return numOfBans;
+        return numOfSusp;
     }
 
     public void setNumOfBans(int numOfBans) {
-        this.numOfBans = numOfBans;
+        this.numOfSusp = numOfBans;
     }
 }

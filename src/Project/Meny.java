@@ -12,7 +12,9 @@ public class Meny extends Librarian {
             System.out.println( "PM.nummer "+  bm.getPersonalNum());
 
         }*/
-        lb.deleteMember(2);
+        //lb.deleteMember(2);
+
+        lb.createAccount(2313, "sda", "sdd", "Student");
 
 
 

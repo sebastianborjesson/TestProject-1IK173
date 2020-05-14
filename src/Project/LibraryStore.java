@@ -68,8 +68,8 @@ public class LibraryStore implements ILibraryStore {
         bannedMembersArrayList.clear();
 
         try(Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-                "root", "abc123")) {
+                "jdbc:mysql://localhost:3306/1ik173project?allowPublicKeyRetrieval=true&useSSL=false",
+                "root", "Sturridge15")) {
             Statement stmt = conn.createStatement();
             ResultSet result = stmt.executeQuery("SELECT pNumber , ID FROM 1ik173project.bannedmembers");
             while (result.next()) {
@@ -106,11 +106,11 @@ public class LibraryStore implements ILibraryStore {
 
         try(Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
 
-                "root", "abc123")) {
+                "root", "Sturridge15")) {
             Statement stmt = conn.createStatement();
             ResultSet result = stmt.executeQuery("select * from member");
             while (result.next()) {
-                Member m = new Member(result.getInt(1) , result.getInt(2), result.getString(3),result.getString(4), result.getString(5), result.getInt(6), result.getBoolean(7), result.getInt(8) );
+                Member m = new Member(result.getInt(1) , result.getInt(2), result.getString(3),result.getString(4), result.getString(5), result.getInt(6), result.getBoolean(7), result.getInt(8), result.getDate(9));
                 memberArrayList.add(m);
             }
             stmt.close();
@@ -129,13 +129,14 @@ public class LibraryStore implements ILibraryStore {
         int numbOfLoans = 0;
         boolean isBanned = false;
         int numbOfBan = 0;
+        //Date suspendedDate = null;
 
 
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-                "root", "abc123")) {
+                "root", "Sturridge15")) {
 
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO member value (?,?,?,?,?,?,?,?)");
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO member value (?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, ID);
             ps.setInt(2, personalNum);
             ps.setString(3, firstName);
@@ -144,6 +145,7 @@ public class LibraryStore implements ILibraryStore {
             ps.setInt(6,numbOfLoans);
             ps.setBoolean(7, isBanned);
             ps.setInt(8, numbOfBan);
+            ps.setDate(9, null);
             ps.executeUpdate();
 
         } catch (SQLException ex) {
@@ -156,8 +158,8 @@ public class LibraryStore implements ILibraryStore {
         arrayListBooks.clear();     //Clear array before select, else duplicates.
 
         try(Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-                "root", "abc123")) {
+                "jdbc:mysql://localhost:3306/1ik173project?allowPublicKeyRetrieval=true&useSSL=false",
+                "root", "Sturridge15")) {
 
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT * from book");
@@ -179,8 +181,8 @@ public class LibraryStore implements ILibraryStore {
     @Override
     public void removeMember(int id) {
         try(Connection conn = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-                "root", "abc123")) {
+        "jdbc:mysql://localhost:3306/1ik173project?useSSL=false?allowPublicKeyRetrieval=true",
+                "root", "Sturridge15")) {
             Statement statement = conn.createStatement();
              statement.executeUpdate("DELETE FROM member WHERE member.ID = " + id + ";");
 
