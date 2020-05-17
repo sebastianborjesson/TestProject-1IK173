@@ -10,18 +10,12 @@ public class Book {
     public Book() {
     }
 
-
-    public Book(String title, String author, String isbn, boolean borrowedStatus, String storePos, int numberOfEx, int numberOfBorrowedEx) {
+    public Book(String title, String author, String isbn, int numberOfEx,  int numberOfBorrowedEx) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
         this.numberOfEx = numberOfEx;
-        this.numberOfBorrowedEx = numberOfBorrowedEx;
-    }
-
-    public Book(String title, String author) {
-        this.title = title;
-        this.author = author;
+        this.numberOfBorrowedEx=numberOfBorrowedEx;
     }
 
     public String getTitle() {

@@ -42,7 +42,7 @@ public class menu extends Librarian{
 
                 System.out.print("Your role at the university: ");
                 String role = scan.next();
-
+                lib.createAccount(personalnumber,firstName,lastName,role);
             }
 
             if (choice == 2) {
@@ -62,14 +62,22 @@ public class menu extends Librarian{
                 bookTitle = scan.nextLine();
                 if (lib.doesItemExist(bookTitle)){
                     System.out.println("Boken fanns");
-                }else {System.out.println("Boken fanns inte");}
+                }else {
+                    System.out.println("Boken fanns inte");
+                    continue;}
 
+                if (lib.isItemAvailable(bookTitle)){
+                    System.out.println("Boken finns tillgänglig");
+                }else {
+                    System.out.println("Alla böcker är utlånade");
+                    continue;
+                }
 
                 System.out.print("Enter your identification code: ");
                 int id = scan.nextInt();
 
                 System.out.println("Enter your role: ");
-                String role = scan.nextLine();
+                String role = scan.next();
 
 
 
@@ -80,8 +88,8 @@ public class menu extends Librarian{
 
 
                     //Fortsättningsblock är arbeta på.
-                if (lib.borrowBook(bookTitle, id, role, isbn)) {
-                    System.out.println("Success! You have borrowed the book: " + bookTitle);
+                if (lib.borrowBook(bookTitle, id, role)) {
+                   System.out.println("Success! You have borrowed the book: " + bookTitle);
                 }
 
             }
@@ -92,9 +100,29 @@ public class menu extends Librarian{
             }
             if (choice == 4) {
                 Member [] members = ls.getAllMembers();
+                String isbn = "";
 
-                for (Member m: members) {
-                    System.out.println(m.getFirstName());
+                System.out.println("Enter your ID number");
+                Scanner scanner=new Scanner(System.in);
+                int id=scanner.nextInt();
+                HasBook [] hasBooks=ls.getAllBorrowedBooks();
+                String bookTitle = "";
+                for (HasBook hb:hasBooks) {
+
+                    if (hb.getID()==id){
+                        bookTitle = hb.getTitle();
+                        isbn = hb.getISBN();
+                        System.out.println("Book title: " + hb.getTitle());
+                    }
+                }
+                System.out.println("Enter the books name");
+                String a = scanner.nextLine();
+                String bookName=scanner.nextLine();
+                if (bookName != bookTitle) {
+                    System.out.println("Couldn't find the book!");
+                } else {
+                    lib.returnBook(bookName, isbn, id);
+                    System.out.println("Book has been returned!");
                 }
             }
             if (choice == 6) {

@@ -10,9 +10,9 @@ public interface ILibrarian {
 
     void deleteMember(int id);
 
-    void borrowBook(String title, int id, String role);
+    boolean borrowBook(String title, int id, String role);
 
-    void returnBook();
+    void returnBook(String title, String isbn, int ID);
 
     void checkDeletedMember();
 

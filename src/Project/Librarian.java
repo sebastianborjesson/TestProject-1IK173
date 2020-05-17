@@ -1,8 +1,6 @@
 package Project;
 
-import java.util.Iterator;
 import java.util.Random;
-import java.util.function.Consumer;
 
 
 public class Librarian implements ILibrarian {
@@ -24,8 +22,8 @@ public class Librarian implements ILibrarian {
     Member[] memberList = new Member[10];
 
     @Override
-    
-   public void createAccount(int pnummer, String fnamn, String lnamn, String role) {
+
+    public void createAccount(int pnummer, String fnamn, String lnamn, String role) {
 
         Member[] member = libraryStore.getAllMembers();
         BannedMembers[] bannedMembers = libraryStore.getAllBannedMembers();
@@ -33,18 +31,18 @@ public class Librarian implements ILibrarian {
         int id = rnd.nextInt(9999 - 1000) + 1000;
         int counter = member.length;
 
-        for(BannedMembers bm: bannedMembers) {
+        for (BannedMembers bm : bannedMembers) {
             if (bm.getPersonalNum() == pnummer) {
                 System.out.println("This account is banned. Dont come back");
             }
         }
 
 
-        for (Member m  : member ) {
-            if(m.getPersonalNum() == pnummer && m.isSuspended()  ){
+        for (Member m : member) {
+            if (m.getPersonalNum() == pnummer && m.isSuspended()) {
                 System.out.println("This person is suspended from entering the system! The process will not be allowed to continue.");
                 counter--;
-            } else if (m.getPersonalNum() == pnummer){
+            } else if (m.getPersonalNum() == pnummer) {
                 System.out.println("This person already exist in the system");
                 counter--;
             } else {
@@ -83,7 +81,6 @@ public class Librarian implements ILibrarian {
     }
 
 
-
     @Override
     public boolean checkBanned(Member member) {
        /* for (Member m :createAccount) {
@@ -112,16 +109,15 @@ public class Librarian implements ILibrarian {
         Member[] members = libraryStore.getAllMembers();
         BannedMembers[] bannedMembers = libraryStore.getAllBannedMembers();
 
-        for (BannedMembers bm: bannedMembers) {
-            if (bm.getPersonalNum() == id)  {
+        for (BannedMembers bm : bannedMembers) {
+            if (bm.getPersonalNum() == id) {
                 libraryStore.removeMember(id);
             }
         }
-        for (Member m: members) {
-            if (m.getID() != id)  {
+        for (Member m : members) {
+            if (m.getID() != id) {
                 System.out.println("Didnt find the user");
-            }
-            else {
+            } else {
                 libraryStore.removeMember(id);
                 System.out.println("The user has been removed from the system " + "where the id was: " + id);
             }
@@ -129,67 +125,133 @@ public class Librarian implements ILibrarian {
     }
 
     @Override
-    public void borrowBook(String title, int id, String role) {
+    public boolean borrowBook(String title, int id, String role) {
 
         Member[] members = libraryStore.getAllMembers();
         Book[] books = libraryStore.getAllBooks();
+        String isbn;
+        int numOfLoanedEx = 0;
 
-        for (Book b: books) {
-            String isbn = b.getIsbn();
-            if (b.getIsbn().equals(isbn));
+        for (Book b : books) {
+            if (b.getTitle().equals(title)) {
+                isbn = b.getIsbn();
+                numOfLoanedEx = b.getNumberOfBorrowedEx();
+                numOfLoanedEx++;
+                b.setNumberOfBorrowedEx(numOfLoanedEx);
+            }
         }
-
         for (Member m : members) {
-            int numOfLoans = m.getNumOfLoans() ;
+            int numOfLoans = m.getNumOfLoans();
+
             if (m.getID() == id && !m.isSuspended()) {
-                if(m.getRole().equals("Student")) {
-                    if (m.getNumOfLoans() < 3) {
+                if (m.getRole().equalsIgnoreCase("Student")) {
+                    if (numOfLoans < 3) {
                         numOfLoans++;
                         m.setNumOfLoans(numOfLoans);
-                        libraryStore.borrowBook(id, title, numOfLoans);
+                        libraryStore.borrow(id, title, numOfLoans, numOfLoanedEx);
+                        return true;
+                    } else {
+                        System.out.println("You have exceded the number of loans!");
                     }
+                } else if (m.getRole().equals("Postgraduate")) {
+                    if (numOfLoans < 5) {
+                        numOfLoans++;
+                        m.setNumOfLoans(numOfLoans);
+                        libraryStore.borrow(id, title, numOfLoans, numOfLoanedEx);
+                        return true;
+                    } else {
+                        System.out.println("You have exceded the number of loans!");
+                    }
+                } else if (m.getRole().equals("PhD")) {
+                    if (numOfLoans < 7) {
+                        numOfLoans++;
+                        m.setNumOfLoans(numOfLoans);
+                        libraryStore.borrow(id, title, numOfLoans, numOfLoanedEx);
+                        return true;
+                    } else {
+                        System.out.println("You have exceded the number of loans!");
+                    }
+
+                } else if (m.getRole().equals("Teacher")) {
+                    if (numOfLoans < 10) {
+                        numOfLoans++;
+                        m.setNumOfLoans(numOfLoans);
+                        libraryStore.borrow(id, title, numOfLoans, numOfLoanedEx);
+                        return true;
+                    } else {
+                        System.out.println("You have exceded the number of loans!");
+                    }
+                    return false;
+
+
                 }
             }
-
-
-
-        }
+        }return false;
     }
 
     @Override
-    public void returnBook() {
+    public void returnBook(String title, String isbn, int ID) {
 
+        String returnOfISBN="";
+        int numOfLoans=0;
+        int numOfBorrowedEx=0;
+        HasBook [] hasBooks= libraryStore.getAllBorrowedBooks();
+        Book [] books=libraryStore.getAllBooks();
+        Member [] members=libraryStore.getAllMembers();
+
+        for (HasBook hb:hasBooks) {
+            if (hb.getTitle().equals(title) && hb.getID()==ID){
+                returnOfISBN=hb.getISBN();
+            }
+        }
+        for (Member m: members) {
+            if (m.getID()==ID){
+                numOfLoans=m.getNumOfLoans();
+                numOfLoans--;
+            }
+
+        }
+        for (Book b: books) {
+            if (b.getTitle().equalsIgnoreCase(title) && b.getIsbn().equalsIgnoreCase(isbn)){
+                numOfBorrowedEx=b.getNumberOfBorrowedEx();
+            }
+
+        }
+        libraryStore.returnB(title,ID,returnOfISBN,numOfLoans,numOfBorrowedEx);
     }
 
     @Override
     public void checkDeletedMember() {
-            //Förmodligen kan vi ta bort
+        //Förmodligen kan vi ta bort
     }
 
     @Override
     public boolean isItemAvailable(String title) {
         Book[] books = libraryStore.getAllBooks();
-        for (Book book: books) {
-
+        int nrOfEx=0;
+        int nrOfBorrowedEx=0;
+        for (Book book : books) {
             if (title.equals(book.getTitle())) {
-                return true;
-
+                nrOfEx=book.getNumberOfEx();
+                nrOfBorrowedEx=book.getNumberOfBorrowedEx();
+                if (nrOfBorrowedEx < nrOfEx) return true;
             }
-        }return false;
-
+        }
+        return false;
     }
 
     @Override
     public boolean doesItemExist(String title) {
 
         Book[] books = libraryStore.getAllBooks();
-        for (Book book: books) {
+        for (Book book : books) {
 
             if (title.equals(book.getTitle())) {
                 return true;
 
             }
-        }return false;
+        }
+        return false;
     }
 }
 

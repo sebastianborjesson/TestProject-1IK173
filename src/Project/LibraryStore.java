@@ -2,6 +2,7 @@ package Project;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 import java.io.FileInputStream;
@@ -17,16 +18,18 @@ public class LibraryStore implements ILibraryStore {
 
         private List<BannedMembers> bm1;
         private List<Member> mem;
+        private List<HasBook> hb;
 
         public LibraryStore(){
             bm1 = new ArrayList<BannedMembers>();
             mem = new ArrayList<Member>();
+            hb = new ArrayList<HasBook>();
         }
 
         ArrayList<Member> memberArrayList = new ArrayList<>();
         ArrayList<Book> arrayListBooks = new ArrayList<>();
         ArrayList<BannedMembers> bannedMembersArrayList = new ArrayList<>();
-
+        ArrayList<HasBook> hasBookArrayList = new ArrayList<>();
     private static String url;
     private static String username;
     private static String password;
@@ -166,7 +169,7 @@ public class LibraryStore implements ILibraryStore {
 
             while(result.next()) {
 
-                Book book = new Book(result.getString(1), result.getString(2));
+                Book book = new Book(result.getString(1), result.getString(2), result.getString(3),result.getInt(4), result.getInt(5));
                 arrayListBooks.add(book);
                 //System.out.println("Book: " + result.getString(1) + " | Author: " + result.getString(2));
             }
@@ -178,6 +181,29 @@ public class LibraryStore implements ILibraryStore {
         Book[] books = new Book[arrayListBooks.size()];
         return arrayListBooks.toArray(books);
     }
+
+    public HasBook[] getAllBorrowedBooks(){
+        try(Connection conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
+                "root", "Sturridge15")) {
+            Statement statement = conn.createStatement();
+            //statement.executeUpdate("SELECT * FROM hasbook");
+            ResultSet result=statement.executeQuery("SELECT  * from hasbook");
+            while (result.next()){
+                HasBook hasBook=new HasBook(result.getString("book"),result.getInt("ID"), result.getString("isbn"));
+                hasBookArrayList.add(hasBook);
+            }
+
+            statement.close();
+        }
+        catch (SQLException ex) {
+            System.out.println("Something went wrong...");
+        }
+
+        HasBook[] hasBooks=new HasBook[hasBookArrayList.size()];
+        return hasBookArrayList.toArray(hasBooks);
+    }
+
     @Override
     public void removeMember(int id) {
         try(Connection conn = DriverManager.getConnection(
@@ -193,7 +219,15 @@ public class LibraryStore implements ILibraryStore {
         }
     }
 
-    public void borrowBook(int ID, String title, int numOfLoans) {
+    public void borrow(int ID, String title, int numOfLoans, int numberOfBorrowedEx) {
+    String isbn=null;
+    Book [] books=getAllBooks();
+
+        for (Book b:books) {
+            if (b.getTitle().equals(title)){
+                isbn=b.getIsbn();
+            }
+        }
 
     try(Connection conn = DriverManager.getConnection(
             "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
@@ -205,15 +239,41 @@ public class LibraryStore implements ILibraryStore {
         ps1.setInt(2, ID);
         ps1.executeUpdate();
 
-        PreparedStatement ps2 = conn.prepareStatement("INSERT into hasbook values (?,?)");
+        PreparedStatement ps2 = conn.prepareStatement("INSERT into hasbook values (?,?,?)");
 
         ps2.setString(1, title);
         ps2.setInt(2, ID);
-        //ps2.setString(3, isbn);
+        ps2.setString(3, isbn);
         ps2.executeUpdate();
+
+        PreparedStatement ps3 = conn.prepareStatement("UPDATE book SET numberOfBorrowedEx = ? WHERE isbn = ?");
+        ps3.setInt(1, numberOfBorrowedEx);
+        ps3.setString(2, isbn);
+        ps3.executeUpdate();
     }
         catch (SQLException ex) {
         System.out.println("Something went wrong...");
+        }
+    }
+    public void returnB(String title, int ID, String isbn, int num, int nbe){
+        try(Connection conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
+                "root", "Sturridge15")) {
+
+            PreparedStatement pst=conn.prepareStatement("DELETE from hasbook where isbn=?");
+            pst.setString(1,isbn);
+            pst.executeUpdate();
+            PreparedStatement pst1=conn.prepareStatement("UPDATE member set numOfLoans=? where ID=?");
+            pst1.setInt(1,num);
+            pst1.setInt(2,ID);
+            pst1.executeUpdate();
+            PreparedStatement pst2=conn.prepareStatement("UPDATE book set numberOfBorrowedEx=? where isbn=?");
+            pst2.setInt(1,nbe);
+            pst2.setString(2,isbn);
+            pst2.executeUpdate();
+        }
+        catch (SQLException ex) {
+            System.out.println("Something went wrong...");
         }
     }
 }
