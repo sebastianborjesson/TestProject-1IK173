@@ -4,9 +4,18 @@ public interface ILibrarian {
     void createAccount(int pnummer, String fnamne, String lname, String role);
 
 
-   boolean checkBanned(Member member);
 
-    void suspendMember(Member member);
+    void checkBanned();
+
+    void suspendMember(int ID);
+
+    void removeSuspension();
+
+    void banMember(int ID);
+
+    boolean getMedlem(int ID);
+
+    boolean getMedlemRole(String role);
 
     void deleteMember(int id);
 

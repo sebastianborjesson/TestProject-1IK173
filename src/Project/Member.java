@@ -10,6 +10,7 @@ public class Member {
     private String role;
     private int numOfLoans;
     private String [] borrowedBooks = new String[10];
+    private int strikes;
     private boolean isSuspended=false;
     private int numOfSusp;
     private Date suspendedDate;
@@ -34,31 +35,17 @@ public class Member {
 
 
 
-    public Member(int ID, int personalNum, String firstName, String lastName, String role, int numOfLoans, boolean isSuspended, int numOfSusp, Date suspendedDate) {
+
+    public Member(int ID, int personalNum, String firstName, String lastName, String role, int numOfLoans, int strikes, boolean isSuspended, int numOfSusp, Date suspendedDate) {
         this.ID = ID;
         this.personalNum = personalNum;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
         this.numOfLoans = numOfLoans;
+        this.strikes = strikes;
         this.isSuspended = isSuspended;
         this.numOfSusp = numOfSusp;
-        this.suspendedDate = suspendedDate;
-    }
-
-    public boolean isSuspended() {
-        return isSuspended;
-    }
-
-    public void setSuspended(boolean suspended) {
-        isSuspended = suspended;
-    }
-
-    public Date getSuspendedDate() {
-        return suspendedDate;
-    }
-
-    public void setSuspendedDate(Date suspendedDate) {
         this.suspendedDate = suspendedDate;
     }
 
@@ -108,6 +95,14 @@ public class Member {
         this.role = role;
     }
 
+    public int getStrikes() {
+        return strikes;
+    }
+
+    public void setStrikes(int strikes) {
+        this.strikes = strikes;
+    }
+
     public int getNumOfLoans() {
         return numOfLoans;
     }
@@ -116,11 +111,27 @@ public class Member {
         this.numOfLoans = numOfLoans;
     }
 
-    public int getNumOfBans() {
+    public int getNumOfSuspensions() {
         return numOfSusp;
     }
 
-    public void setNumOfBans(int numOfBans) {
-        this.numOfSusp = numOfBans;
+    public void setNumOfSuspensions(int numOfSusp) {
+        this.numOfSusp = numOfSusp;
+    }
+
+    public boolean isSuspended() {
+        return isSuspended;
+    }
+
+    public void setSuspended(boolean suspended) {
+        isSuspended = suspended;
+    }
+
+    public Date getSuspendedDate() {
+        return suspendedDate;
+    }
+
+    public void setSuspendedDate(Date suspendedDate) {
+        this.suspendedDate = suspendedDate;
     }
 }

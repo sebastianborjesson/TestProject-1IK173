@@ -2,15 +2,13 @@ package Project;
 
 public class BannedMembers {
     private int personalNum;
-    private int ID;
+    private String firstName;
+    private String lastName;
 
-    public BannedMembers(){
-
-    };
-
-    public BannedMembers(int PM, int ID) {
-        this.personalNum = PM;
-        this.ID = ID;
+    public BannedMembers(int personalNum, String firstName, String lastName) {
+        this.personalNum = personalNum;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public int getPersonalNum() {
@@ -21,11 +19,19 @@ public class BannedMembers {
         this.personalNum = personalNum;
     }
 
-    public int getID() {
-        return ID;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
