@@ -45,13 +45,13 @@ public class menu extends Librarian{
                 String lastName = scan.next();
 
                 System.out.print("Your role at the university - Please enter one of these alternatives: \n 1 for student 2 for postgraduate 3 for PhD 4 for teacher");
-                System.out.print("Student");
+
                 String student="Student";
-                System.out.print("Postgraduate");
+
                 String postgraduate="Postgraduate";
-                System.out.print("PhD");
+
                 String phD="Phd";
-                System.out.print("Teacher");
+
                 String teacher ="Teacher";
                 int val = scan.nextInt();
 

@@ -39,7 +39,7 @@ public class LibraryStore implements ILibraryStore {
 
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?allowPublicKeyRetrieval=true&useSSL=false",
-                "root", "1234")) {
+                "root", "123456")) {
             Statement stmt = conn.createStatement();
             ResultSet result = stmt.executeQuery("SELECT pNumber, firstName, lastName FROM bannedmembers");
             while (result.next()) {
@@ -64,7 +64,7 @@ public class LibraryStore implements ILibraryStore {
 
         try(Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
 
-                "root", "1234")) {
+                "root", "123456")) {
             Statement stmt = conn.createStatement();
             ResultSet result = stmt.executeQuery("select * from member");
             while (result.next()) {
@@ -86,7 +86,7 @@ public class LibraryStore implements ILibraryStore {
     public void addSuspension(int ID) {
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-                "root", "1234")) {
+                "root", "123456")) {
 
             PreparedStatement ps1 = conn.prepareStatement("UPDATE member SET isSuspended = true WHERE ID = " + ID + ";");
             PreparedStatement ps2 = conn.prepareStatement("UPDATE member SET numOfSusp = numOfSusp + 1 WHERE ID = " + ID + ";");
@@ -107,7 +107,7 @@ public class LibraryStore implements ILibraryStore {
     public void removeSuspension(int ID) {
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-                "root", "1234")) {
+                "root", "123456")) {
 
             PreparedStatement ps1 = conn.prepareStatement("UPDATE member SET isSuspended = false WHERE ID = ?;");
             ps1.setInt(1, ID);
@@ -133,7 +133,7 @@ public class LibraryStore implements ILibraryStore {
 
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-                "root", "1234")) {
+                "root", "123456")) {
 
             PreparedStatement ps = conn.prepareStatement("INSERT INTO member value (?,?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, ID);
@@ -159,7 +159,7 @@ public class LibraryStore implements ILibraryStore {
 
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?allowPublicKeyRetrieval=true&useSSL=false",
-                "root", "1234")) {
+                "root", "123456")) {
 
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery("SELECT * from book");
@@ -183,7 +183,7 @@ public class LibraryStore implements ILibraryStore {
         hasBookArrayList.clear();
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-                "root", "1234")) {
+                "root", "123456")) {
             Statement statement = conn.createStatement();
             //statement.executeUpdate("SELECT * FROM hasbook");
             ResultSet result=statement.executeQuery("SELECT  * from hasbook");
@@ -206,7 +206,7 @@ public class LibraryStore implements ILibraryStore {
     public void removeMember(int id) {
         try(Connection conn = DriverManager.getConnection(
         "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-                "root", "1234")) {
+                "root", "123456")) {
             Statement statement = conn.createStatement();
              statement.executeUpdate("DELETE FROM member WHERE member.ID = " + id + ";");
 
@@ -229,7 +229,7 @@ public class LibraryStore implements ILibraryStore {
 
     try(Connection conn = DriverManager.getConnection(
             "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-            "root", "1234")) {
+            "root", "123456")) {
 
         PreparedStatement ps1 = conn.prepareStatement("UPDATE member set numOfLoans = ? where ID = ?");
 
@@ -256,7 +256,7 @@ public class LibraryStore implements ILibraryStore {
     public void returnB(String title, int ID, String isbn, int numOfLoans, int numOfBorrowedEx){
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-                "root", "1234")) {
+                "root", "123456")) {
 
             PreparedStatement pst=conn.prepareStatement("DELETE from hasbook where ID=? AND isbn=?");
             pst.setInt(1,ID);
@@ -279,7 +279,7 @@ public class LibraryStore implements ILibraryStore {
     public void setStrikes(int id) {
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-                "root", "1234")) {
+                "root", "123456")) {
             Statement statement = conn.createStatement();
             statement.executeUpdate("UPDATE member SET strikes = strikes + 1 WHERE member.ID = " + id + ";");
 
@@ -293,7 +293,7 @@ public class LibraryStore implements ILibraryStore {
     public void addBannedMember(int pNumber, String firstName, String lastName) {
         try(Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/1ik173project?useSSL=false",
-                "root", "1234")) {
+                "root", "123456")) {
 
             PreparedStatement ps = conn.prepareStatement("INSERT INTO bannedmembers VALUES (?,?,?)");
             ps.setInt(1, pNumber);

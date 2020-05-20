@@ -35,17 +35,29 @@ public class Librarian implements ILibrarian {
         for (BannedMembers bm : bannedMembers) {
             if (bm.getPersonalNum() == pnummer) {
                 System.out.println("This account is banned. Dont come back");
+                break;
             }
         }
 
 
-        for (Member m : member) {
-            if (m.getPersonalNum() == pnummer && m.isSuspended()) {
-                System.out.println("This person is suspended from entering the system! The process will not be allowed to continue.");
+        for (Member m : member) {/*
+            if (m.getPersonalNum()==pnummer){
+                System.out.println("This personal number already exists in the system");
                 counter--;
-            } else if (m.getPersonalNum() == pnummer) {
+                continue;
+            }else {
+                counter--;
+            }
+            if (counter==0){
+                libraryStore.addMember(id, pnummer, fnamn, lnamn, role);
+            }*/
+
+
+
+
+            if (m.getPersonalNum() == pnummer) {
                 System.out.println("This person already exist in the system");
-                counter--;
+                break;
             } else {
                 counter--;
             }
