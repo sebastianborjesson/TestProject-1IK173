@@ -3,13 +3,13 @@ package Project;
 public interface ILibrarian {
     void createAccount(int pnummer, String fnamne, String lname, String role);
 
-
+    void getHasBook();
 
     void checkBanned();
 
     void suspendMember(int ID);
 
-    void removeSuspension();
+    void checkSuspension();
 
     void banMember(int ID);
 
@@ -19,7 +19,7 @@ public interface ILibrarian {
 
     void deleteMember(int id);
 
-    boolean borrowBook(String title, int id, String role);
+    boolean borrowBook(String title, int id);
 
     void returnBook(String title, String isbn, int ID);
 

@@ -82,6 +82,17 @@ public class Librarian implements ILibrarian {
     }
 
     @Override
+    public void getHasBook() {
+        /*
+        HasBook[] hasBooks = libraryStore.getAllBorrowedBooks();
+        for (HasBook hb:hasBooks){
+            if (hb.getEnd_date())
+        }
+
+         */
+    }
+
+    @Override
     public boolean getMedlem(int ID) {
         Member[] members = libraryStore.getAllMembers();
         for (Member m: members) {
@@ -154,16 +165,25 @@ public class Librarian implements ILibrarian {
     }
 
     @Override
-    public void removeSuspension() {
+    public void checkSuspension() {
         Date date = new Date();
         Date suspendedDate;
+        Date end_date;
         Member[] members = libraryStore.getAllMembers();
+        HasBook[] hasBooks = libraryStore.getAllBorrowedBooks();
         for (Member m: members) {
-            int ID = m.getID();
-            suspendedDate = m.getSuspendedDate();
-            if (suspendedDate != null && date.compareTo(suspendedDate) > 0) {
-                libraryStore.removeSuspension(ID);
+            for (HasBook hb: hasBooks){
+                int ID = m.getID();
+                end_date = hb.getEnd_date();
+                suspendedDate = m.getSuspendedDate();
+                if (suspendedDate != null && date.compareTo(suspendedDate) > 0 && ID == hb.getID() && !(date.compareTo(end_date) < 0)) {
+                    libraryStore.addSuspension(ID);
+                }
+                else if (suspendedDate != null && date.compareTo(suspendedDate) > 0) {
+                    libraryStore.removeSuspension(ID);
+                }
             }
+
         }
     }
 
@@ -186,7 +206,7 @@ public class Librarian implements ILibrarian {
     }
 
     @Override
-    public boolean borrowBook(String title, int id, String role) {
+    public boolean borrowBook(String title, int id) {
 
         Member[] members = libraryStore.getAllMembers();
         Book[] books = libraryStore.getAllBooks();
