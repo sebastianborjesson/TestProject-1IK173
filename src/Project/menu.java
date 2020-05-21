@@ -59,16 +59,12 @@ public class menu extends Librarian{
 
                     if (val == 1) {
                         lib.createAccount(personalnumber, firstName, lastName, student);
-                        System.out.println("Your library user has been created!");
                     } else if (val == 2) {
                         lib.createAccount(personalnumber, firstName, lastName, postgraduate);
-                        System.out.println("Your library user has been created!");
                     } else if (val == 3) {
                         lib.createAccount(personalnumber, firstName, lastName, phD);
-                        System.out.println("Your library user has been created!");
                     } else if (val == 4) {
                         lib.createAccount(personalnumber, firstName, lastName, teacher);
-                        System.out.println("Your library user has been created!");
                     } else {
                         System.out.println("Enter correct type of role");
                         continue;

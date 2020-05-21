@@ -46,13 +46,6 @@ class LibrarianTest {
     @Test
     void borrowBook() {
 
-        when(ls.getAllMembers())
-                .then(new Member{
-                new Member(1234,972379, "Bullen","Korv","Student", 0,0,false,0,null)
-        };
-
-        when(ls.getAllBooks()).
-
     }
 
     @Test
