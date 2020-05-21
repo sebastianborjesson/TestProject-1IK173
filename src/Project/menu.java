@@ -5,10 +5,17 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.sql.*;
+import java.util.logging.ErrorManager;
+
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class menu extends Librarian{
 
+
+
     public static void runMenu() {
+        Logger logger = LogManager.getLogger(menu.class.getName());
         LibraryStore ls = new LibraryStore();
         Librarian lib = new Librarian(ls);
         Scanner scan = new Scanner(System.in);
@@ -29,6 +36,7 @@ public class menu extends Librarian{
                 System.out.println("5. Close the system");
                 System.out.print("Make your choice: -> ");
                 choice = scan.nextInt();
+
 
                 if (choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5) {
                 } else {
@@ -134,43 +142,45 @@ public class menu extends Librarian{
                     System.out.print("If you like to return a book, please enter your userid: ");
                     userId = scan.nextInt();
 
-                    // felhantering vid fel id <--
 
+                    boolean foundUser = false;  //Boolean sätts till false, hittar vi korrekt ID gör om till true.
                     for (HasBook hb : hasBooks) {
-                        if (userId != hb.getID()) {
-                            System.out.println("This ID doesnt exist");
-                            break;
-                        }
 
-
-                        System.out.println("Books you are currently borrowing: ");
-                        for (HasBook hbr : hasBooks) {
-                            if (hbr.getID() == userId) {
-                                bookTitle = hbr.getTitle();
-                                System.out.println(bookTitle);
-                            }
-                        }
-                        System.out.println("Enter the book you wish to return: ");
-                        String buffert = scan.nextLine();
-                        String bookToReturn = scan.nextLine();
-
-                        for (HasBook hbr : hasBooks) {
-                            if (hbr.getID() == userId) {
-                                isbn = hbr.getISBN();
-                                end_date = hbr.getEnd_date();
-                                if (bookToReturn.equals(hbr.getTitle())) {
-                                    lib.returnBook(bookToReturn, isbn, userId);
-                                    System.out.println("You have returned " + bookToReturn);
-                                }  else {
-                                    System.out.println("This book doesnt exist in your loans");
-                                }
-                                // felhantering om du skriver fel (else)
-                                if (date.compareTo(end_date) > 0) {
-                                    System.out.println("You have returned it to late, strike for you!");
-                                    lib.suspendMember(userId);
+                            foundUser = true;
+                            System.out.println("Books you are currently borrowing: ");
+                            for (HasBook hbr : hasBooks) {
+                                if (hbr.getID() == userId) {
+                                    bookTitle = hbr.getTitle();
+                                    System.out.println(bookTitle);
                                 }
                             }
-                        }
+
+
+
+                            System.out.println("Enter the book you wish to return: ");
+                            String buffert = scan.nextLine();
+                            String bookToReturn = scan.nextLine();
+
+                            for (HasBook hbr : hasBooks) {
+                                if (hbr.getID() == userId) {
+                                    isbn = hbr.getISBN();
+                                    end_date = hbr.getEnd_date();
+                                    if (bookToReturn.equals(hbr.getTitle())) {
+                                        lib.returnBook(bookToReturn, isbn, userId);
+                                        System.out.println("You have returned " + bookToReturn);
+                                    } else {
+                                        System.out.println("This book doesnt exist in your loans");
+                                    }
+                                    // felhantering om du skriver fel (else)
+                                    if (date.compareTo(end_date) > 0) {
+                                        System.out.println("You have returned it to late, strike for you!");
+                                        lib.suspendMember(userId);
+                                    }
+                                }
+                            }
+                    }
+                    if (!foundUser) {
+                        System.out.println("jebega");
                     }
                 }
                 if (choice == 4) {
@@ -190,10 +200,12 @@ public class menu extends Librarian{
         }
         catch (InputMismatchException e) {
             System.err.println("\nEnter correct value, not a string...");
+            logger.info("Tried to enter a string instead of an integer..");
             runMenu();
         }
         catch (Exception e) {
             System.err.println("\nEnter an integer that is in the menu..");
+            logger.info("Tried to enter an integer which is not represented in our menu..");
             runMenu();
         }
     }

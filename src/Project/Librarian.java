@@ -1,10 +1,18 @@
 package Project;
 
+import org.apache.logging.log4j.LogManager;
+
 import java.util.Date;
 import java.util.Random;
+import org.apache.logging.log4j.*;
+
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 
 public class Librarian implements ILibrarian {
+
+    private Logger logger = LogManager.getLogger(Librarian.class.getName());
 
     private LibraryStore libraryStore;
     private LibraryStub lst;
@@ -34,21 +42,7 @@ public class Librarian implements ILibrarian {
 
         for (BannedMembers bm : bannedMembers) {
             if (bm.getPersonalNum() != pnummer) {
-
-
-                for (Member m : member) {/*
-            if (m.getPersonalNum()==pnummer){
-                System.out.println("This personal number already exists in the system");
-                counter--;
-                continue;
-            }else {
-                counter--;
-            }
-            if (counter==0){
-                libraryStore.addMember(id, pnummer, fnamn, lnamn, role);
-            }*/
-
-
+                for (Member m : member) {
                     if (m.getPersonalNum() == pnummer) {
                         System.out.println("This person already exist in the system");
                         break;
@@ -58,15 +52,17 @@ public class Librarian implements ILibrarian {
                     if (counter == 0) {
                         libraryStore.addMember(id, pnummer, fnamn, lnamn, role);
                         System.out.println("Your library user has been created!");
+                        logger.info("Success! A new member has been created to the library. The ID is: " + id + " and the name is: " + fnamn +
+                                " " + lnamn + " and the members role at the university is: " + role);
                     }
                 }
                 break;
             } else {
                 System.out.println("This person is banned. Dont come back!");
+                logger.info("This user was already banned so a new account cannot be created!" + bm);
                 break;
             }
         }
-
     }
 
 
@@ -97,6 +93,7 @@ public class Librarian implements ILibrarian {
         Member[] members = libraryStore.getAllMembers();
         for (Member m : members) {
             if (m.getID() == ID) {
+                logger.info("This method searches our database for all members. A list of personal ID's was found: " + ID);
                 return true;
             }
         }
@@ -140,6 +137,7 @@ public class Librarian implements ILibrarian {
             String lastName = m.getLastName();
             if (m.getID() == ID) {
                 libraryStore.addBannedMember(pNumber, firstName, lastName);
+                logger.info("A member has been banned! The unlucky one is: " + firstName + lastName + " Good bye!");
                 libraryStore.removeMember(ID);
             }
         }
@@ -152,6 +150,7 @@ public class Librarian implements ILibrarian {
             if (m.getID() == ID) {
                 if (m.getStrikes() > 2) {
                     libraryStore.addSuspension(ID);
+                    logger.info("A suspension was done, this ID: " + ID + " has been suspended for 15 days!");
                 }
                 /*
                 if (m.getNumOfSuspensions() > 2) {
@@ -200,6 +199,7 @@ public class Librarian implements ILibrarian {
             if (m.getID() == id) {
                 libraryStore.removeMember(id);
                 System.out.println("The user has been removed from the system " + "where the id was: " + id);
+                logger.info("A user has been deleted with this id: " + id);
             }
         }
     }
@@ -230,6 +230,7 @@ public class Librarian implements ILibrarian {
 
             if (m.getID() == id && m.isSuspended()) {
                 System.out.println("You are suspended until " + m.getSuspendedDate());
+                logger.info("Ops, you were suspended. This ID can't for the moment borrow a book" + " The ID which can't borrow is: " + id);
                 continue;
             }
             if (m.getID() == id && !m.isSuspended()) {
@@ -238,6 +239,8 @@ public class Librarian implements ILibrarian {
                         numOfLoans++;
                         m.setNumOfLoans(numOfLoans);
                         libraryStore.borrow(id, title, numOfLoans, numOfLoanedEx);
+                        logger.info("A loan was successful. The book title was:" + title + " and the user id was: " + id
+                        + " and the user's role was: " + m.getRole());
                         return true;
                     } else {
                         System.out.println("You have exceded the number of loans!");
@@ -247,6 +250,8 @@ public class Librarian implements ILibrarian {
                         numOfLoans++;
                         m.setNumOfLoans(numOfLoans);
                         libraryStore.borrow(id, title, numOfLoans, numOfLoanedEx);
+                        logger.info("A loan was successful. The book title was:" + title + " and the user id was: " + id
+                                + " and the user's role was: " + m.getRole());
                         return true;
                     } else {
                         System.out.println("You have exceded the number of loans!");
@@ -256,6 +261,8 @@ public class Librarian implements ILibrarian {
                         numOfLoans++;
                         m.setNumOfLoans(numOfLoans);
                         libraryStore.borrow(id, title, numOfLoans, numOfLoanedEx);
+                        logger.info("A loan was successful. The book title was:" + title + " and the user id was: " + id
+                                + " and the user's role was: " + m.getRole());
                         return true;
                     } else {
                         System.out.println("You have exceded the number of loans!");
@@ -266,6 +273,8 @@ public class Librarian implements ILibrarian {
                         numOfLoans++;
                         m.setNumOfLoans(numOfLoans);
                         libraryStore.borrow(id, title, numOfLoans, numOfLoanedEx);
+                        logger.info("A loan was successful. The book title was:" + title + " and the user id was: " + id
+                                + " and the user's role was: " + m.getRole());
                         return true;
                     } else {
                         System.out.println("You have exceded the number of loans!");
@@ -298,6 +307,7 @@ public class Librarian implements ILibrarian {
                 end_date = hb.getEnd_date();
                 if (date.compareTo(end_date) > 0) {
                     libraryStore.setStrikes(ID);
+                    logger.info("A user with the user id: " + ID + " was given a strike!");
                 }
             }
         }
@@ -316,7 +326,8 @@ public class Librarian implements ILibrarian {
 
 
         }
-        libraryStore.returnB(title, ID, returnOfISBN, numOfLoans, numOfBorrowedEx);
+        libraryStore.returnB(title,ID,returnOfISBN,numOfLoans,numOfBorrowedEx);
+        logger.info("A book was successful returned." + " The user who returned was: " + ID + ", And the book title was " + title);
     }
 
     @Override
