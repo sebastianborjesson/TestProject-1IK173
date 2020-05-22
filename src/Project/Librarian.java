@@ -40,9 +40,11 @@ public class Librarian implements ILibrarian {
         int id = rnd.nextInt(9999 - 1000) + 1000;
         int counter = member.length;
 
+        boolean emptyArray = false;
         for (BannedMembers bm : bannedMembers) {
             if (bm.getPersonalNum() != pnummer) {
                 for (Member m : member) {
+                    emptyArray = true;
                     if (m.getPersonalNum() == pnummer) {
                         System.out.println("This person already exist in the system");
                         break;
@@ -52,6 +54,7 @@ public class Librarian implements ILibrarian {
                     if (counter == 0) {
                         libraryStore.addMember(id, pnummer, fnamn, lnamn, role);
                         System.out.println("Your library user has been created!");
+                        System.out.println("Your ID is: " + id);
                         logger.info("Success! A new member has been created to the library. The ID is: " + id + " and the name is: " + fnamn +
                                 " " + lnamn + " and the members role at the university is: " + role);
                         return true;
@@ -63,6 +66,14 @@ public class Librarian implements ILibrarian {
                 logger.error("This user was already banned so a new account cannot be created!" + bm);
                 return false;
             }
+        }
+        if (!emptyArray) {
+            libraryStore.addMember(id, pnummer, fnamn, lnamn, role);
+            System.out.println("Your library user has been created!");
+            System.out.println("Your ID is: " + id);
+            logger.info("Success! A new member has been created to the library. The ID is: " + id + " and the name is: " + fnamn +
+                    " " + lnamn + " and the members role at the university is: " + role);
+            return true;
         }
         return false;
     }
