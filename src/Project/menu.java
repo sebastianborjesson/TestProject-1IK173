@@ -145,9 +145,11 @@ public class menu extends Librarian{
 
                     boolean foundUser = false;  //Boolean sätts till false, hittar vi korrekt ID gör om till true.
                     boolean foundBook = false;
-                    for (HasBook hb : hasBooks) {
+                    for (Member m : members) {
 
+                        if (m.getID() == userId && m.getNumOfLoans() > 0) {
                             foundUser = true;
+
                             System.out.println("Books you are currently borrowing: ");
                             for (HasBook hbr : hasBooks) {
                                 if (hbr.getID() == userId) {
@@ -179,14 +181,21 @@ public class menu extends Librarian{
                                     }
                                 }
                             }
+                            if (!foundBook) {
+                                System.out.println("Book was not found");
+                                break;
+                            }
+                        } else if (m.getID() == userId && m.getNumOfLoans() == 0){
+                            foundUser = true;
+                            System.out.println("You have not borrowed any books");
+                        }
+                        if (!foundUser) {
+                            System.out.println("User doesn't exist in the system");
+                            break;
+                        }
                         break;
                     }
-                    if (!foundBook) {
-                        System.out.println("Book was not found");
-                    }
-                    if (!foundUser) {
-                        System.out.println("User doesn't exist in the system");
-                    }
+
                 }
                 if (choice == 4) {
                     System.out.print("Enter the id of the user that you wish to remove: ");
