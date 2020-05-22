@@ -32,7 +32,7 @@ public class Librarian implements ILibrarian {
 
     @Override
 
-    public void createAccount(int pnummer, String fnamn, String lnamn, String role) {
+    public boolean createAccount(int pnummer, String fnamn, String lnamn, String role) {
 
         Member[] member = libraryStore.getAllMembers();
         BannedMembers[] bannedMembers = libraryStore.getAllBannedMembers();
@@ -54,15 +54,17 @@ public class Librarian implements ILibrarian {
                         System.out.println("Your library user has been created!");
                         logger.info("Success! A new member has been created to the library. The ID is: " + id + " and the name is: " + fnamn +
                                 " " + lnamn + " and the members role at the university is: " + role);
+                        return true;
                     }
                 }
                 break;
             } else {
                 System.out.println("This person is banned. Dont come back!");
-                logger.info("This user was already banned so a new account cannot be created!" + bm);
-                break;
+                logger.error("This user was already banned so a new account cannot be created!" + bm);
+                return false;
             }
         }
+        return false;
     }
 
 
@@ -113,7 +115,7 @@ public class Librarian implements ILibrarian {
     }
 
     @Override
-    public void banMember(int ID) {
+    public boolean banMember(int ID) {
         HasBook[] hasBooks = libraryStore.getAllBorrowedBooks();
         BannedMembers[] bannedMembers = libraryStore.getAllBannedMembers();
         Member[] members = libraryStore.getAllMembers();
@@ -137,30 +139,29 @@ public class Librarian implements ILibrarian {
             String lastName = m.getLastName();
             if (m.getID() == ID) {
                 libraryStore.addBannedMember(pNumber, firstName, lastName);
-                logger.info("A member has been banned! The unlucky one is: " + firstName + lastName + " Good bye!");
+                logger.error("A member has been banned! The unlucky one is: " + firstName + lastName + " Good bye!");
                 libraryStore.removeMember(ID);
             }
         }
+        return true;
     }
 
     @Override
-    public void suspendMember(int ID) {
+    public boolean suspendMember(int ID) {
         Member[] members = libraryStore.getAllMembers();
         for (Member m : members) {
             if (m.getID() == ID) {
                 if (m.getStrikes() > 2) {
                     libraryStore.addSuspension(ID);
                     logger.info("A suspension was done, this ID: " + ID + " has been suspended for 15 days!");
+                    return true;
                 }
-                /*
                 if (m.getNumOfSuspensions() > 2) {
                     banMember(ID);
                 }
-
-                 */
-
             }
         }
+        return false;
     }
 
     @Override
@@ -186,22 +187,26 @@ public class Librarian implements ILibrarian {
     }
 
     @Override
-    public void deleteMember(int id) {
+    public boolean deleteMember(int id) {
         Member[] members = libraryStore.getAllMembers();
         BannedMembers[] bannedMembers = libraryStore.getAllBannedMembers();
 
+        /*
         for (BannedMembers bm : bannedMembers) {
             if (bm.getPersonalNum() == id) {
                 libraryStore.removeMember(id);
             }
         }
+        */
         for (Member m : members) {
             if (m.getID() == id) {
                 libraryStore.removeMember(id);
                 System.out.println("The user has been removed from the system " + "where the id was: " + id);
                 logger.info("A user has been deleted with this id: " + id);
+                return true;
             }
         }
+        return false;
     }
 
     @Override
@@ -214,9 +219,12 @@ public class Librarian implements ILibrarian {
         String isbn;
         int numOfLoanedEx = 0;
 
+        /*
         for (HasBook hb : hasBooks) {    //Ta bort för test / Viktor har testat utan denna loop och fått positivt resultat
             isbn = hb.getISBN();
         }
+
+         */
         for (Book b : books) {
             if (b.getTitle().equals(title)) {
                 isbn = b.getIsbn();
@@ -289,7 +297,7 @@ public class Librarian implements ILibrarian {
     }
 
     @Override
-    public void returnBook(String title, String isbn, int ID) {
+    public boolean returnBook(String title, String isbn, int ID) {
 
         String returnOfISBN = "";
         int numOfLoans = 0;
@@ -328,6 +336,7 @@ public class Librarian implements ILibrarian {
         }
         libraryStore.returnB(title,ID,returnOfISBN,numOfLoans,numOfBorrowedEx);
         logger.info("A book was successful returned." + " The user who returned was: " + ID + ", And the book title was " + title);
+        return true;
     }
 
     @Override

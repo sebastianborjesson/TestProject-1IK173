@@ -32,7 +32,7 @@ public class menu extends Librarian{
                 System.out.println("1. Register a new user to the library!");
                 System.out.println("2. Rent book");
                 System.out.println("3. Return book");
-                System.out.println("4. Remove existing user");     //Tillfällig för hjälp
+                System.out.println("4. Remove existing user");
                 System.out.println("5. Close the system");
                 System.out.print("Make your choice: -> ");
                 choice = scan.nextInt();
@@ -144,6 +144,7 @@ public class menu extends Librarian{
 
 
                     boolean foundUser = false;  //Boolean sätts till false, hittar vi korrekt ID gör om till true.
+                    boolean foundBook = false;
                     for (HasBook hb : hasBooks) {
 
                             foundUser = true;
@@ -166,10 +167,10 @@ public class menu extends Librarian{
                                     isbn = hbr.getISBN();
                                     end_date = hbr.getEnd_date();
                                     if (bookToReturn.equals(hbr.getTitle())) {
+                                        foundBook = true;
                                         lib.returnBook(bookToReturn, isbn, userId);
                                         System.out.println("You have returned " + bookToReturn);
-                                    } else {
-                                        System.out.println("This book doesnt exist in your loans");
+                                        break;
                                     }
                                     // felhantering om du skriver fel (else)
                                     if (date.compareTo(end_date) > 0) {
@@ -178,9 +179,13 @@ public class menu extends Librarian{
                                     }
                                 }
                             }
+                        break;
+                    }
+                    if (!foundBook) {
+                        System.out.println("Book was not found");
                     }
                     if (!foundUser) {
-                        System.out.println("jebega");
+                        System.out.println("User doesn't exist in the system");
                     }
                 }
                 if (choice == 4) {
@@ -191,7 +196,18 @@ public class menu extends Librarian{
                         System.out.println("Didn't find the user");
                         continue;
                     }
-                    lib.deleteMember(deleteId);
+                    for (Member m: members) {
+                        if (deleteId != m.getID()) {
+                            continue;
+                        }
+                        if (deleteId == m.getID() && m.getNumOfLoans() > 0) {
+                            System.out.println("You have books to return");
+                            break;
+                        } else {
+                            lib.deleteMember(deleteId);
+                            break;
+                        }
+                    }
                 }
             }
             while (choice != 5);
@@ -200,12 +216,12 @@ public class menu extends Librarian{
         }
         catch (InputMismatchException e) {
             System.err.println("\nEnter correct value, not a string...");
-            logger.info("Tried to enter a string instead of an integer..");
+            logger.error("Tried to enter a string instead of an integer..");
             runMenu();
         }
         catch (Exception e) {
             System.err.println("\nEnter an integer that is in the menu..");
-            logger.info("Tried to enter an integer which is not represented in our menu..");
+            logger.warn("Tried to enter an integer which is not represented in our menu..");
             runMenu();
         }
     }
