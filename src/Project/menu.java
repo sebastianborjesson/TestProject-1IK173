@@ -146,7 +146,9 @@ public class menu extends Librarian{
                     boolean foundUser = false;  //Boolean sätts till false, hittar vi korrekt ID gör om till true.
                     boolean foundBook = false;
                     for (Member m : members) {
-
+                        if (userId != m.getID()) {
+                            continue;
+                        }
                         if (m.getID() == userId && m.getNumOfLoans() > 0) {
                             foundUser = true;
 
@@ -189,11 +191,10 @@ public class menu extends Librarian{
                             foundUser = true;
                             System.out.println("You have not borrowed any books");
                         }
-                        if (!foundUser) {
-                            System.out.println("User doesn't exist in the system");
-                            break;
-                        }
                         break;
+                    }
+                    if (!foundUser) {
+                        System.out.println("User doesn't exist in the system");
                     }
 
                 }
