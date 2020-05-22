@@ -174,7 +174,6 @@ public class menu extends Librarian{
                                         foundBook = true;
                                         lib.returnBook(bookToReturn, isbn, userId);
                                         System.out.println("You have returned " + bookToReturn);
-                                        break;
                                     }
                                     // felhantering om du skriver fel (else)
                                     if (date.compareTo(end_date) > 0) {
